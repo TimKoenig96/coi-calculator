@@ -1,1 +1,56 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="color-scheme" content="dark"><meta name="author" content="Tim König"><meta name="creator" content="Tim König"><meta name="description" content="Factory calculator and planner for Captain of Industry"><meta name="keywords" content="factory,production,calculator,planner,captain of industry,coi"><title>Captain of Industry Calculator</title><link rel="stylesheet" href="style.css"><script type="module" src="script.js"></script></head><body class="flex_row"><div id="sidebar" class="flex_col"><h1>Header</h1><hr><div class="button flex_row"><svg viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg><div class="vr"></div><span>Power Calculator</span></div><div class="button flex_row"><svg viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg><div class="vr"></div><span>Production Calculator</span></div><hr><div class="button flex_row"><svg viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg><div class="vr"></div><span>Set Research</span></div><div class="button flex_row"><svg viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100"/></svg><div class="vr"></div><span>Set Recipes</span></div><hr><div class="flex_col" id="inputs_container"><h2>Inputs</h2><div id="input_list" class="io_list"></div><div class="button small">Add Input</div></div><div class="flex_col" id="outputs_container"><h2>Outputs</h2><div id="output_list" class="io_list"></div><div class="button small">Add Output</div></div><div id="footer"><hr><p class="small_text">© 2024 Tim König</p><p class="small_text">COI-Calculator is not affiliated with MaFi Games.</p></div></div></body></html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="color-scheme" content="dark"><meta name="author" content="Tim König"><meta name="creator" content="Tim König"><meta name="description" content="Factory calculator and planner for Captain of Industry"><meta name="keywords" content="factory,production,calculator,planner,captain of industry,coi"><title>Captain of Industry Calculator</title><link rel="stylesheet" href="style.css"><script type="module" src="script.js"></script></head><body class="flex_row"><!-- #region | Sidebar --><div id="sidebar" class="flex_col"><h1>Header</h1><hr><div class="button flex_row"><svg viewBox="0 0 100 100"><mask id="factory_icon_cutout"><rect width="100" height="100" fill="#fff"/><rect x="10" y="61" width="14" height="23" fill="black" rx="3"/><rect x="34" y="61" width="14" height="23" fill="black" rx="3"/><rect x="58" y="61" width="14" height="23" fill="black" rx="3"/></mask><path class="visible" d="
+						M84,3
+						L84,48
+						L3,48
+						L3,97
+						L97,97
+						L97,3
+						Z
+
+						M3,37
+						L19,37
+						L19,21
+						Z
+
+						M30,37
+						L46,37
+						L46,21
+						Z
+
+						M57,37
+						L73,37
+						L73,21
+						Z
+					" mask="url(#factory_icon_cutout)"/></svg><div class="vr"></div><span>Production Calculator</span></div><div class="button flex_row"><svg viewBox="0 0 100 100"><path class="visible" d="
+						M37,3
+						L21,55
+						L46,55
+						L32,97
+						L81,42
+						L51,42
+						L74,3
+						Z
+					"/></svg><div class="vr"></div><span>Power Calculator</span></div><hr><div class="button flex_row"><svg viewBox="0 0 100 100"><mask id="research_icon_cutout"><rect width="100" height="100" fill="#fff"/><path d="
+							M44,24
+							L44,38
+							L32,55
+							C32,55 35,59 40,59
+							C50,59 50,50 65,50
+							L56,38
+							L56,24
+							Z
+						" fill="#000" stroke-linejoin="round" stroke-width="6" stroke="#000"/></mask><path class="visible" d="
+						M38,3
+						L62,3
+						L62,6
+						L38,6
+						Z
+
+						M38,18
+						L38,36
+						C38,36 12,72 12,78
+						C10,103 90,103 88,78
+						C88,72 62,36 62,36
+						L62,18
+						Z
+					" mask="url(#research_icon_cutout)"/></svg><div class="vr"></div><span>Set Research</span></div><div class="button flex_row"><svg viewBox="0 0 100 100"><mask id="recipes_icon_cutout"><rect width="100" height="100" fill="#fff"/><rect fill="#000" x="11" y="11" stroke-width="6" width="31" height="31" rx="6" stroke="#000"/><rect fill="#000" x="58" y="11" stroke-width="6" width="31" height="31" rx="6" stroke="#000"/><rect fill="#000" x="11" y="58" stroke-width="6" width="31" height="31" rx="6" stroke="#000"/><rect fill="#000" x="58" y="58" stroke-width="6" width="31" height="31" rx="6" stroke="#000"/></mask><rect class="visible" x="3" y="3" width="94" height="94" rx="6" mask="url(#recipes_icon_cutout)"/></svg><div class="vr"></div><span>Set Recipes</span></div><hr><div class="flex_col" id="inputs_container"><h2>Inputs</h2><div id="input_list" class="io_list"></div><div class="button small">Add Input</div></div><div class="flex_col" id="outputs_container"><h2>Outputs</h2><div id="output_list" class="io_list"></div><div class="button small">Add Output</div></div><div id="footer"><hr><p class="small_text">© 2024 Tim König</p><p class="small_text">COI-Calculator is not affiliated with MaFi Games.</p></div></div><!-- #endregion --></body></html>
