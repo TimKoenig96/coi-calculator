@@ -11,10 +11,10 @@
 	--spacing_small: 2px;
 
 	/* Colors */
-	--elev_0: hsl(225, 10%, 10%); /* Background */
-	--elev_1: hsl(225, 10%, 13%); /* Sidebar */
-	--elev_2: hsl(225, 10%, 22%); /* Buttons, misc */
-	--elev_3: hsl(225, 10%, 39%); /* Used few times */
+	--elev_0: hsl(225, 12%, 13%); /* Background */
+	--elev_1: hsl(225, 12%, 16%); /* Sidebar */
+	--elev_2: hsl(225, 12%, 24%); /* Buttons, misc */
+	--elev_3: hsl(225, 12%, 39%); /* Used few times */
 
 	--text_primary: #eee;
 	--text_secondary: #777;
@@ -49,8 +49,8 @@ hr {
 }
 
 svg .visible {
-	stroke: var(--text_primary);
-	fill: var(--text_primary);
+	stroke: var(--text_secondary);
+	fill: var(--text_secondary);
 	stroke-linejoin: round;
 	stroke-width: 6;
 }
@@ -86,6 +86,18 @@ svg .visible {
 	cursor: pointer;
 	user-select: none;
 	border-radius: var(--spacing_medium);
+	background-color: var(--elev_2);
+}
+
+.button svg {
+	height: 100%;
+	flex-shrink: 0;
+}
+
+.button.active svg .visible {
+	stroke: var(--text_primary);
+	fill: var(--text_primary);
+
 }
 
 .small_text {
@@ -102,15 +114,6 @@ svg .visible {
 	width: 230px;
 	box-shadow: 0 0 10px 0 black;
 	background-color: var(--elev_1);
-}
-
-#sidebar .button {
-	background-color: var(--elev_2);
-}
-
-#sidebar .button svg {
-	height: 100%;
-	flex-shrink: 0;
 }
 
 .io_list {
