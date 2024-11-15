@@ -47,6 +47,13 @@ hr {
 	border-color: var(--elev_2);
 	border-style: solid;
 }
+
+svg .visible {
+	stroke: var(--text_primary);
+	fill: var(--text_primary);
+	stroke-linejoin: round;
+	stroke-width: 6;
+}
 /* #endregion */
 
 
