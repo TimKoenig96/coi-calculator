@@ -11,9 +11,10 @@
 	--spacing_small: 2px;
 
 	/* Colors */
-	--elev_0: hsl(215, 15%, 15%);
-	--elev_1: hsl(215, 15%, 23%);
-	--elev_2: hsl(215, 15%, 36%);
+	--elev_0: hsl(225, 10%, 10%); /* Background */
+	--elev_1: hsl(225, 10%, 13%); /* Sidebar */
+	--elev_2: hsl(225, 10%, 22%); /* Buttons, misc */
+	--elev_3: hsl(225, 10%, 39%); /* Used few times */
 
 	--text_primary: #eee;
 	--text_secondary: #777;
@@ -53,7 +54,7 @@ hr {
 .vr { /* VR = Vertical Rule */
 	height: 100%;
 	border-width: 0 var(--spacing_small) 0 0;
-	border-color: var(--elev_2);
+	border-color: var(--elev_3);
 	border-style: solid;
 }
 
@@ -90,18 +91,19 @@ hr {
 /* #region | Sidebar */
 #sidebar {
 	padding: var(--spacing_medium);
-	box-shadow: 0 0 10px 0 black;
 	overflow: hidden scroll;
 	width: 230px;
+	box-shadow: 0 0 10px 0 black;
+	background-color: var(--elev_1);
 }
 
 #sidebar .button {
-	white-space: nowrap;
-	background-color: var(--elev_1);
+	background-color: var(--elev_2);
 }
 
 #sidebar .button svg {
 	height: 100%;
+	flex-shrink: 0;
 }
 
 .io_list {
