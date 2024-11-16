@@ -75,7 +75,7 @@ class UserNotification {
 	}
 
 	#removeNotif(e) {
-		e.preventDefault();
+		e?.preventDefault();
 		this.element.remove();
 		clearTimeout(this.timeout);
 	}
