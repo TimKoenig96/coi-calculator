@@ -60,24 +60,24 @@ class UserNotification {
 	#createNotif(header, message, style) {
 		this.element = document.createElement("div");
 		if (style) this.element.classList.add(style);
-		this.element.addEventListener("click", this.#removeNotif.bind(this));
-		this.element.innerHTML = `<h1>${header}</h1><p>${message}</p>`;
+		this.element.innerHTML = `<h1>${header}</h1><p>${message}</p><br><a href="">Close message</a>`;
+		this.element.children[3].addEventListener("click", this.#removeNotif.bind(this));
 	}
 
 	#showNotif() {
 		notifs_container.prepend(this.element);
-	#removeNotif() {
+	}
+
+	#removeNotif(e) {
+		e.preventDefault();
 		this.element.remove();
 		clearTimeout(this.timeout);
 	}
 }
 // #endregion
 
-	// Set and show message
-	warning_text.textContent = message;
-	warning_container.classList.remove("hidden");
-}
 
+// #region | Functions
 /**
  * Switch to the production calculator and update all UI elements
  */

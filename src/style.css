@@ -179,7 +179,6 @@ input::-webkit-inner-spin-button {
 	backdrop-filter: blur(var(--spacing_small));
 	color: #fff;
 	user-select: none;
-	cursor: pointer;
 	pointer-events: auto;
 }
 
