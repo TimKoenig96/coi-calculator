@@ -144,33 +144,37 @@ function sharePower() {
 	// TODO
 }
 
-function attemptApplySearchParameters() {
+function parseSearchParams() {
 
 	// Get search parameters
 	const search_params = new URLSearchParams(window.location.search);
 
-	// No JSON key, end execution
-	if (!search_params.has("json")) return false;
+	// Get current calculator
+	const target_calculator = search_params.get("mode");
 
-	// Try parsing the JSON string
-	let parsed_json;
+	// Try parsing research and recipes
+	let parsed_research, parsed_recipes;
 	try {
-		parsed_json = JSON.parse(search_params.get("json"));
+		parsed_research = JSON.parse(search_params.get("research") ?? "[]");
+		parsed_recipes = JSON.parse(search_params.get("recipes") ?? "[]");
 	} catch (error) {
-		updateWarningMessage("Warning: The JSON in the link couldn't be processed. Does it have a typo?");
-		return false;
+		throw ["Invalid JSON", "The JSON parameters (after the question mark in the URL) seem to be malformed.<br>If you've got some time, could you maybe <a target=\"_blank\" href=\"https://github.com/TimKoenig96/coi-calculator/issues/new\">create an issue</a>?<br>To fix this, remove everything after the question mark and recreate the calculation."];
 	}
 
-	// TODO:
-	// Apply all research, recipes, inputs, outputs or power related settings
-	// If any of them are unknown or out of bounds, abort and return false
-	// If all goes well, return true
+	// Return results
+	return [target_calculator, parsed_research, parsed_recipes];
 }
 
 function runInit() {
 
-	// Attempt to apply the search parameters
-	const success = attemptApplySearchParameters();
+	// Check for presence of search parameters
+	if (window.location.search) {
+		try {
+			const [target_calculator, research, recipes] = parseSearchParams();
+		} catch (error) {
+			new UserNotification(error[0], error[1], "error");
+		}
+	}
 }
 // #endregion
 
