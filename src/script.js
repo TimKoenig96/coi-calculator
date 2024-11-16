@@ -29,11 +29,27 @@ const share_power_btn = document.getElementById("share_power_btn");
 
 
 // #region | Functions
-function showWarning(message) {
+/**
+ * Update and show or hide warning message
+ * @param {String?} message Message to set or undefined to hide
+ */
+function updateWarningMessage(message) {
+
+	// No message, hide
+	if (!message) {
+		warning_text.textContent = "";
+		warning_container.classList.add("hidden");
+		return;
+	}
+
+	// Set and show message
 	warning_text.textContent = message;
 	warning_container.classList.remove("hidden");
 }
 
+/**
+ * Switch to the production calculator and update all UI elements
+ */
 function gotoProductionCalculator() {
 
 	// Switch active classes for buttons
@@ -52,6 +68,9 @@ function gotoProductionCalculator() {
 	share_power_btn.classList.add("hidden");
 }
 
+/**
+ * Switch to the power calculator and update all UI elements
+ */
 function gotoPowerCalculator() {
 
 	// Switch active classes for buttons
@@ -107,7 +126,7 @@ function attemptApplySearchParameters() {
 	try {
 		parsed_json = JSON.parse(search_params.get("json"));
 	} catch (error) {
-		showWarning("Warning: The JSON in the link couldn't be processed. Does it have a typo?");
+		updateWarningMessage("Warning: The JSON in the link couldn't be processed. Does it have a typo?");
 		return false;
 	}
 
