@@ -18,6 +18,7 @@
 
 	--text_primary: #eee;
 	--text_secondary: #777;
+	--text_warning: #f85;
 }
 
 * {
@@ -102,6 +103,10 @@ svg .visible {
 .small_text {
 	font-size: var(--font_small);
 	color: var(--text_secondary);
+}
+
+.warning {
+	color: var(--text_warning);
 }
 /* #endregion */
 
