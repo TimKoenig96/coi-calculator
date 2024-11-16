@@ -120,6 +120,10 @@ svg .visible {
 	background-color: var(--elev_1);
 }
 
+#warning_container {
+	display: none;
+}
+
 .io_list {
 	border: var(--spacing_small) solid var(--elev_2);
 	height: 120px;
