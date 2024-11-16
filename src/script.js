@@ -1,4 +1,5 @@
 // #region | Variables
+let worker;
 let current_calculator = "production";
 // #endregion
 
@@ -78,6 +79,18 @@ class UserNotification {
 
 
 // #region | Functions
+function workerMessageHandler(message) {
+	// TODO
+}
+
+/**
+ * Spawn the worker for calculations
+*/
+function spawnWorker() {
+  worker = new Worker(new URL("worker.js", import.meta.url), {type: "module"});
+  worker.addEventListener("message", workerMessageHandler);
+}
+
 /**
  * Switch to the production calculator and update all UI elements
  */
@@ -166,6 +179,9 @@ function parseSearchParams() {
 }
 
 function runInit() {
+
+	// Spawn worker
+	spawnWorker();
 
 	// Check for presence of search parameters
 	if (window.location.search) {
