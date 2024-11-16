@@ -49,18 +49,18 @@ function runInit() {
 
 
 // #region | Event listeners
-const event_list = {
-	production_calculator_btn: gotoProductionCalculator,
-	power_calculator_btn: gotoPowerCalculator,
-	set_research_btn: openResearch,
-	set_recipes_btn: openRecipes,
-	add_input_btn: openAddInput,
-	add_output_btn: openAddOutput,
-	share_production_btn: shareProduction,
-	share_power_btn: sharePower
-};
+const event_list = new Set([
+	[production_calculator_btn, gotoProductionCalculator],
+	[power_calculator_btn, gotoPowerCalculator],
+	[set_research_btn, openResearch],
+	[set_recipes_btn, openRecipes],
+	[add_production_input_btn, openAddInput],
+	[add_production_output_btn, openAddOutput],
+	[share_production_btn, shareProduction],
+	[share_power_btn, sharePower]
+]);
 
-for (const [element, func] of Object.entries(event_list)) element.addEventListener("click", func);
+event_list.forEach(([element, func]) => element.addEventListener("click", func));
 // #endregion
 
 
