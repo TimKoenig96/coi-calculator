@@ -20,11 +20,11 @@
 		<!-- #region | Sidebar -->
 		<div id="sidebar" class="flex_col">
 
-			<div id="warning_container" class="flex_col">
+			<!-- Top warning -->
+			<div id="warning_container" class="flex_col hidden">
 				<p class="warning" id="warning_text"></p>
 				<hr>
 			</div>
-			
 
 			<!-- Production Calculator button -->
 			<div class="button flex_row active" id="production_calculator_btn">
@@ -146,26 +146,31 @@
 
 			<hr>
 
-			<!-- Specific inputs -->
-			<div class="flex_col" id="inputs_container">
+			<!-- Production Inputs -->
+			<div class="flex_col" id="production_inputs_container">
 				<h2>Inputs</h2>
-				<div id="input_list_container" class="io_list"></div>
-				<div class="button" id="add_input_btn">Add Input</div>
+				<div id="production_input_list_container" class="io_list"></div>
+				<div class="button" id="add_production_input_btn">Add Input</div>
+				<hr>
 			</div>
 
-			<hr>
-
-			<!-- Outputs -->
-			<div class="flex_col" id="outputs_container">
+			<!-- Production Outputs -->
+			<div class="flex_col" id="production_outputs_container">
 				<h2>Outputs</h2>
-				<div id="output_list_container" class="io_list"></div>
-				<div class="button" id="add_output_btn">Add Output</div>
+				<div id="production_output_list_container" class="io_list"></div>
+				<div class="button" id="add_production_output_btn">Add Output</div>
+				<hr>
 			</div>
 
-			<hr>
+			<!-- Power Output -->
+			<div class="flex_col hidden" id="power_output_container">
+				<h2>Power Output (MW)</h2>
+				<input type="number" id="power_output" min="0">
+				<hr>
+			</div>
 
 			<div class="button flex_row" id="share_production_btn">Share Production Calculation</div>
-			<div class="button flex_row" id="share_power_btn">Share Power Calculation</div>
+			<div class="button flex_row hidden" id="share_power_btn">Share Power Calculation</div>
 
 			<div id="footer">
 				<hr>

@@ -1,22 +1,73 @@
+// #region | Variables
+let current_calculator = "production";
+// #endregion
+
+
 // #region | Elements
+const warning_container = document.getElementById("warning_container");
+const warning_text = document.getElementById("warning_text");
+
 const production_calculator_btn = document.getElementById("production_calculator_btn");
 const power_calculator_btn = document.getElementById("power_calculator_btn");
+
 const set_research_btn = document.getElementById("set_research_btn");
 const set_recipes_btn = document.getElementById("set_recipes_btn");
-const add_input_btn = document.getElementById("add_input_btn");
-const add_output_btn = document.getElementById("add_output_btn");
+
+const production_inputs_container = document.getElementById("production_inputs_container");
+const production_input_list_container = document.getElementById("production_input_list_container");
+const add_production_input_btn = document.getElementById("add_production_input_btn");
+
+const production_outputs_container = document.getElementById("production_outputs_container");
+const production_output_list_container = document.getElementById("production_output_list_container");
+const add_production_output_btn = document.getElementById("add_production_output_btn");
+
+const power_output_container = document.getElementById("power_output_container");
+
 const share_production_btn = document.getElementById("share_production_btn");
 const share_power_btn = document.getElementById("share_power_btn");
 // #endregion
 
 
 // #region | Functions
+function showWarning(message) {
+	warning_text.textContent = message;
+	warning_container.classList.remove("hidden");
+}
+
 function gotoProductionCalculator() {
-	// TODO
+
+	// Switch active classes for buttons
+	production_calculator_btn.classList.add("active");
+	power_calculator_btn.classList.remove("active");
+
+	// Show production in- and outputs
+	production_inputs_container.classList.remove("hidden");
+	production_outputs_container.classList.remove("hidden");
+
+	// Hide power output
+	power_output_container.classList.add("hidden");
+
+	// Share buttons
+	share_production_btn.classList.remove("hidden");
+	share_power_btn.classList.add("hidden");
 }
 
 function gotoPowerCalculator() {
-	// TODO
+
+	// Switch active classes for buttons
+	production_calculator_btn.classList.remove("active");
+	power_calculator_btn.classList.add("active");
+
+	// Hide production in- and outputs
+	production_inputs_container.classList.add("hidden");
+	production_outputs_container.classList.add("hidden");
+
+	// Show power output
+	power_output_container.classList.remove("hidden");
+
+	// Share buttons
+	share_production_btn.classList.add("hidden");
+	share_power_btn.classList.remove("hidden");
 }
 
 function openResearch() {

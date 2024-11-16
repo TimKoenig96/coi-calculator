@@ -29,6 +29,10 @@
 	color: var(--text_primary);
 }
 
+*:focus {
+	outline: none;
+}
+
 h1 {
 	font-size: var(--font_large);
 }
@@ -108,6 +112,25 @@ svg .visible {
 .warning {
 	color: var(--text_warning);
 }
+
+.hidden {
+	display: none;
+}
+
+input[type="number"] {
+	background-color: var(--elev_1);
+	border: var(--spacing_small) solid var(--elev_2);
+	padding: var(--spacing_medium);
+	border-radius: var(--spacing_medium);
+	-moz-appearance: textfield;
+	appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 /* #endregion */
 
 
@@ -118,10 +141,6 @@ svg .visible {
 	width: 230px;
 	box-shadow: 0 0 10px 0 black;
 	background-color: var(--elev_1);
-}
-
-#warning_container {
-	display: none;
 }
 
 .io_list {
