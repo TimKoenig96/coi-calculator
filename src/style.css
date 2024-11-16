@@ -16,9 +16,13 @@
 	--elev_2: hsl(225, 12%, 24%); /* Buttons, misc */
 	--elev_3: hsl(225, 12%, 39%); /* Used few times */
 
+	--notif_default: hsla(215, 60%, 50%, 0.3);
+	--notif_success: hsla(110, 80%, 40%, 0.35);
+	--notif_warning: hsla(55, 95%, 50%, 0.35);
+	--notif_error: hsla(0, 80%, 40%, 0.35);
+	
 	--text_primary: #eee;
 	--text_secondary: #777;
-	--text_warning: #f85;
 }
 
 * {
@@ -109,10 +113,6 @@ svg .visible {
 	color: var(--text_secondary);
 }
 
-.warning {
-	color: var(--text_warning);
-}
-
 .hidden {
 	display: none;
 }
@@ -151,5 +151,47 @@ input::-webkit-inner-spin-button {
 
 #footer {
 	margin-top: auto;
+}
+/* #endregion */
+
+
+/* #region | Notifications */
+#notifs_container {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#notifs_container > div {
+	width: fit-content;
+	max-width: 100vw;
+	margin: var(--spacing_medium) var(--spacing_medium) 0;
+	padding: var(--spacing_medium);
+	text-align: center;
+	border-radius: var(--spacing_medium);
+	word-wrap: break-word;
+	background-color: var(--notif_default);
+	backdrop-filter: blur(var(--spacing_small));
+	color: #fff;
+	user-select: none;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+#notifs_container > div.success {
+	background-color: var(--notif_success);
+}
+
+#notifs_container > div.warning {
+	background-color: var(--notif_warning);
+}
+
+#notifs_container > div.error {
+	background-color: var(--notif_error);
 }
 /* #endregion */

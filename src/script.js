@@ -4,9 +4,7 @@ let current_calculator = "production";
 
 
 // #region | Elements
-const warning_container = document.getElementById("warning_container");
-const warning_text = document.getElementById("warning_text");
-
+// Sidebar elements
 const production_calculator_btn = document.getElementById("production_calculator_btn");
 const power_calculator_btn = document.getElementById("power_calculator_btn");
 
@@ -25,22 +23,55 @@ const power_output_container = document.getElementById("power_output_container")
 
 const share_production_btn = document.getElementById("share_production_btn");
 const share_power_btn = document.getElementById("share_power_btn");
+
+// Notifications container
+const notifs_container = document.getElementById("notifs_container");
 // #endregion
 
 
-// #region | Functions
-/**
- * Update and show or hide warning message
- * @param {String?} message Message to set or undefined to hide
- */
-function updateWarningMessage(message) {
+// #region | Classes
+class UserNotification {
+	#valid_styles = ["default", "success", "warning", "error"];
 
-	// No message, hide
-	if (!message) {
-		warning_text.textContent = "";
-		warning_container.classList.add("hidden");
-		return;
+	/**
+	 * Create a new notification
+	 * @param {String} header Message header
+	 * @param {String} message Message to display
+	 * @param {("default"|"success"|"warning"|"error")?} style Message style
+	 * @param {Number?} timer Message auto-delete after specified ms. 0 for permanent.
+	 */
+	constructor(header, message, style = "notif", timer = 0) {
+		this.element;
+		this.timeout;
+
+		// Check correct style use
+		if (!this.#valid_styles.includes(style)) style = "default";
+
+		// Create the element
+		this.#createNotif(header, message, style);
+
+		// If element has timer, set timeout
+		if (timer) this.timeout = setTimeout(this.#removeNotif.bind(this), timer);
+
+		// Show notification
+		this.#showNotif();
 	}
+
+	#createNotif(header, message, style) {
+		this.element = document.createElement("div");
+		if (style) this.element.classList.add(style);
+		this.element.addEventListener("click", this.#removeNotif.bind(this));
+		this.element.innerHTML = `<h1>${header}</h1><p>${message}</p>`;
+	}
+
+	#showNotif() {
+		notifs_container.prepend(this.element);
+	#removeNotif() {
+		this.element.remove();
+		clearTimeout(this.timeout);
+	}
+}
+// #endregion
 
 	// Set and show message
 	warning_text.textContent = message;
