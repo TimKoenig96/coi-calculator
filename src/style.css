@@ -138,7 +138,8 @@ input::-webkit-inner-spin-button {
 #sidebar {
 	padding: var(--spacing_medium);
 	overflow: hidden scroll;
-	width: 230px;
+	width: 250px;
+	flex-shrink: 0;
 	box-shadow: 0 0 10px 0 black;
 	background-color: var(--elev_1);
 }
