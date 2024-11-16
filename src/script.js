@@ -21,9 +21,14 @@ const production_output_list_container = document.getElementById("production_out
 const add_production_output_btn = document.getElementById("add_production_output_btn");
 
 const power_output_container = document.getElementById("power_output_container");
+const power_output_field = document.getElementById("power_output_field");
 
 const share_production_btn = document.getElementById("share_production_btn");
 const share_power_btn = document.getElementById("share_power_btn");
+
+// Canvases
+const production_calculator_canvas = document.getElementById("production_calculator_canvas");
+const power_calculator_canvas = document.getElementById("power_calculator_canvas");
 
 // Notifications container
 const notifs_container = document.getElementById("notifs_container");
@@ -134,48 +139,55 @@ function gotoPowerCalculator() {
 }
 
 function openResearch() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function openRecipes() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function openAddInput() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function openAddOutput() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function shareProduction() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function sharePower() {
-	// TODO
+	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
 function parseSearchParams() {
+	// TODO (perhaps?)
+	// Params schema versioning in case of renamed keys or values
 
 	// Get search parameters
 	const search_params = new URLSearchParams(window.location.search);
 
 	// Get current calculator
-	const target_calculator = search_params.get("mode");
+	const target_calculator = search_params.get("c");
+
+	// Selected calculator is not known
+	if (!["prod", "pwr"].includes(target_calculator))
+		throw ["Invalid Calculator", "The selected calculator (after the question mark in the URL) is invalid.<br>Possible modes: \"prd\" and \"pwr\"."];
 
 	// Try parsing research and recipes
-	let parsed_research, parsed_recipes;
+	let parsed_research, parsed_recipes, parsed_data;
 	try {
 		parsed_research = JSON.parse(search_params.get("research") ?? "[]");
 		parsed_recipes = JSON.parse(search_params.get("recipes") ?? "[]");
+		parsed_data = JSON.parse(search_params.get("data") ?? "{}");
 	} catch (error) {
 		throw ["Invalid JSON", "The JSON parameters (after the question mark in the URL) seem to be malformed.<br>If you've got some time, could you maybe <a target=\"_blank\" href=\"https://github.com/TimKoenig96/coi-calculator/issues/new\">create an issue</a>?<br>To fix this, remove everything after the question mark and recreate the calculation."];
 	}
 
 	// Return results
-	return [target_calculator, parsed_research, parsed_recipes];
+	return [target_calculator, parsed_research, parsed_recipes, parsed_data];
 }
 
 function runInit() {
@@ -186,7 +198,27 @@ function runInit() {
 	// Check for presence of search parameters
 	if (window.location.search) {
 		try {
-			const [target_calculator, research, recipes] = parseSearchParams();
+
+			// Parse the search parameters
+			const [target_calculator, research, recipes, data] = parseSearchParams();
+
+			// Do power calculation related settings
+			if (target_calculator === "pwr") {
+
+				// Open the power calculator
+				gotoPowerCalculator();
+
+				// Set the amount of power wanted
+				power_output_field.value = Number(data.power_output ?? 0);
+			}
+
+			// Do production calculator related settings
+			else {
+				// TODO
+			}
+
+			// TODO: Apply selected research and recipes
+
 		} catch (error) {
 			new UserNotification(error[0], error[1], "error");
 		}
