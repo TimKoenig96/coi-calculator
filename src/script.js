@@ -43,7 +43,33 @@ function sharePower() {
 	// TODO
 }
 
+function attemptApplySearchParameters() {
+
+	// Get search parameters
+	const search_params = new URLSearchParams(window.location.search);
+
+	// No JSON key, end execution
+	if (!search_params.has("json")) return false;
+
+	// Try parsing the JSON string
+	let parsed_json;
+	try {
+		parsed_json = JSON.parse(search_params.get("json"));
+	} catch (error) {
+		showWarning("Warning: The JSON in the link couldn't be processed. Does it have a typo?");
+		return false;
+	}
+
+	// TODO:
+	// Apply all research, recipes, inputs, outputs or power related settings
+	// If any of them are unknown or out of bounds, abort and return false
+	// If all goes well, return true
+}
+
 function runInit() {
+
+	// Attempt to apply the search parameters
+	const success = attemptApplySearchParameters();
 }
 // #endregion
 
