@@ -46,7 +46,7 @@ class UserNotification {
 	 * @param {("default"|"success"|"warning"|"error")?} style Message style
 	 * @param {Number?} timer Message auto-delete after specified ms. 0 for permanent.
 	 */
-	constructor(header, message, style = "notif", timer = 0) {
+	constructor(header, message, style = "default", timer = 0) {
 		this.element;
 		this.timeout;
 
