@@ -97,7 +97,6 @@ svg .visible {
 .button.active svg .visible {
 	stroke: var(--text_primary);
 	fill: var(--text_primary);
-
 }
 
 .small_text {
