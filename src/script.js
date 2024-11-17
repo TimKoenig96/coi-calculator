@@ -147,10 +147,60 @@ function searchResearchTree() {}
 // Search for recipes in the recipe window
 function searchRecipes() {}
 
+// TODO: Add all research nodes ordered in tiers to the research window
+function setupResearchWindow() {}
+
+// Add all recipes ordered in categories to the recipes window
+function setupRecipesWindow() {
+
+	// Create each item category
+	Item.categories.forEach((category_name, category_id) => {
+		const element = document.createElement("div");
+		element.id = `recipes_category_${category_id}`;
+		element.classList.add("flex_col");
+		element.innerHTML = `
+			<h1>${category_name}</h1>
+			<div id="recipes_category_${category_id}_list">
+				${setupRecipesInCategory(category_id)}
+			</div>
+			<hr>
+		`;
+		recipes_list.appendChild(element);
+	});
+
+	// Setting up recipes for a single category
+	function setupRecipesInCategory(category_id) {
+		const retval = [];
+
+		// Get all items in category
+		const items = Item.getItemsByCategoryId(category_id);
+
+		// Iterate all items in category
+		items.forEach((item) => {
+			// Todo, once recipes are instantiated:
+			// - Get all recipes for `item`
+			// - For each recipe, push code for a recipe div to `retval`
+			// - Once done, return `retval` joined by nothing
+		});
+
+		return items.map(sub_arr => sub_arr.name).join(", ");
+	}
+}
+
 function runInit() {
 
 	// Instantiate all items
 	Item.instantiateAllItems();
+
+	// TODO: Instantiate all buildings and recipes
+	// Building.instantiateAllBuildings();
+	// Recipe.instantiateAllRecipes();
+
+	// Set up the research window
+	// setupResearchWindow();
+
+	// Set up the recipes window
+	setupRecipesWindow();
 }
 // #endregion
 
