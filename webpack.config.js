@@ -19,7 +19,10 @@ export default (_, {mode}) => {
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
 				inject: true,
-				scriptLoading: "module"
+				scriptLoading: "module",
+				minify: {
+					removeRedundantAttributes: false
+				}
 			}),
 
 			new CopyPlugin({
