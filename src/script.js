@@ -1,6 +1,8 @@
 // #region | Variables
 let worker;
 let current_calculator = "production";
+let research_open = false;
+let recipes_open = false;
 // #endregion
 
 
@@ -25,6 +27,13 @@ const power_output_field = document.getElementById("power_output_field");
 
 const share_production_btn = document.getElementById("share_production_btn");
 const share_power_btn = document.getElementById("share_power_btn");
+
+// Windows
+const research_window = document.getElementById("research_window");
+const research_searchbox = document.getElementById("research_searchbox");
+
+const recipes_window = document.getElementById("recipes_window");
+const recipes_searchbox = document.getElementById("recipes_searchbox");
 
 // Canvases
 const production_calculator_canvas = document.getElementById("production_calculator_canvas");
@@ -138,19 +147,41 @@ function gotoPowerCalculator() {
 	share_power_btn.classList.remove("hidden");
 }
 
-function openResearch() {
+function toggleResearchModal() {
+
+	// Set button active class
+	set_research_btn.classList.toggle("active");
+
+	// Close recipes modal if it is open
+	if (recipes_open) toggleRecipesModal();
+
+	// Toggle visibility
+	research_window.classList.toggle("hidden");
+
+	// Toggle current status
+	research_open = !research_open;
+}
+
+function toggleRecipesModal() {
+
+	// Set button active class
+	set_recipes_btn.classList.toggle("active");
+
+	// Close research modal if it is open
+	if (research_open) toggleResearchModal();
+
+	// Toggle visibility
+	recipes_window.classList.toggle("hidden");
+
+	// Toggle current status
+	recipes_open = !recipes_open;
+}
+
+function toggleAddInputModal() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
-function openRecipes() {
-	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
-}
-
-function openAddInput() {
-	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
-}
-
-function openAddOutput() {
+function toggleAddOutputModal() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
@@ -161,6 +192,10 @@ function shareProduction() {
 function sharePower() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
+
+function filterResearchTree() {}
+
+function filterRecipes() {}
 
 function parseSearchParams() {
 	// TODO (perhaps?)
@@ -229,17 +264,19 @@ function runInit() {
 
 // #region | Event listeners
 const event_list = new Set([
-	[production_calculator_btn, gotoProductionCalculator],
-	[power_calculator_btn, gotoPowerCalculator],
-	[set_research_btn, openResearch],
-	[set_recipes_btn, openRecipes],
-	[add_production_input_btn, openAddInput],
-	[add_production_output_btn, openAddOutput],
-	[share_production_btn, shareProduction],
-	[share_power_btn, sharePower]
+	[production_calculator_btn, ["click", gotoProductionCalculator]],
+	[power_calculator_btn, ["click", gotoPowerCalculator]],
+	[set_research_btn, ["click", toggleResearchModal]],
+	[set_recipes_btn, ["click", toggleRecipesModal]],
+	[add_production_input_btn, ["click", toggleAddInputModal]],
+	[add_production_output_btn, ["click", toggleAddOutputModal]],
+	[share_production_btn, ["click", shareProduction]],
+	[share_power_btn, ["click", sharePower]],
+	[research_searchbox, ["input", filterResearchTree]],
+	[recipes_searchbox, ["input", filterRecipes]]
 ]);
 
-event_list.forEach(([element, func]) => element.addEventListener("click", func));
+event_list.forEach(([k, v]) => k.addEventListener(v[0], v[1]));
 // #endregion
 
 
