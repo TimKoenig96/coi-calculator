@@ -221,12 +221,12 @@ input[type="number"]::-webkit-inner-spin-button {
 	width: fit-content;
 	max-width: 100vw;
 	margin: var(--spacing_medium) var(--spacing_medium) 0;
-	padding: var(--spacing_medium);
+	padding: var(--spacing_large);
 	text-align: center;
 	border-radius: var(--spacing_medium);
 	word-wrap: break-word;
 	background-color: var(--notif_default);
-	backdrop-filter: blur(var(--spacing_small));
+	backdrop-filter: blur(var(--spacing_medium));
 	z-index: 100;
 	color: #fff;
 	user-select: none;
