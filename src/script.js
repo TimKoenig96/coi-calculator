@@ -44,9 +44,6 @@ const recipes_list = document.getElementById("recipes_list");
 // Canvases
 const production_calculator_canvas = document.getElementById("production_calculator_canvas");
 const power_calculator_canvas = document.getElementById("power_calculator_canvas");
-
-// Notifications container
-const notifs_container = document.getElementById("notifs_container");
 // #endregion
 
 

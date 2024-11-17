@@ -1,5 +1,6 @@
 export class UserNotification {
-	#valid_styles = ["default", "success", "warning", "error"];
+	static #valid_styles = ["default", "success", "warning", "error"];
+	static #notifs_container = document.getElementById("notifs_container");
 
 	/**
 	 * Create a new notification
@@ -13,7 +14,7 @@ export class UserNotification {
 		this.timeout;
 
 		// Check correct style use
-		if (!this.#valid_styles.includes(style)) style = "default";
+		if (!UserNotification.#valid_styles.includes(style)) style = "default";
 
 		// Create the element
 		this.#createNotif(header, message, style);
@@ -33,7 +34,7 @@ export class UserNotification {
 	}
 
 	#showNotif() {
-		notifs_container.prepend(this.element);
+		UserNotification.#notifs_container.prepend(this.element);
 	}
 
 	#removeNotif(e) {
