@@ -55,14 +55,6 @@ function workerMessageHandler(message) {
 }
 
 /**
- * Spawn the worker for calculations
-*/
-function spawnWorker() {
-  worker = new Worker(new URL("worker.js", import.meta.url), {type: "module"});
-  worker.addEventListener("message", workerMessageHandler);
-}
-
-/**
  * Switch to the production calculator and update all UI elements
  */
 function gotoProductionCalculator() {
@@ -150,9 +142,11 @@ function sharePowerCalculation() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
-function filterResearchTree() {}
+// Search for research nodes in the research window
+function searchResearchTree() {}
 
-function filterRecipes() {}
+// Search for recipes in the recipe window
+function searchRecipes() {}
 
 function parseSearchParams() {
 	// TODO (perhaps?)
@@ -227,10 +221,10 @@ const event_list = new Set([
 	[set_recipes_btn, ["click", toggleRecipesModal]],
 	[add_production_input_btn, ["click", toggleAddInputModal]],
 	[add_production_output_btn, ["click", toggleAddOutputModal]],
-	[research_searchbox, ["input", filterResearchTree]],
-	[recipes_searchbox, ["input", filterRecipes]]
 	[share_production_btn, ["click", shareProductionCalculation]],
 	[share_power_btn, ["click", sharePowerCalculation]],
+	[research_searchbox, ["input", searchResearchTree]],
+	[recipes_searchbox, ["input", searchRecipes]]
 ]);
 
 event_list.forEach(([k, v]) => k.addEventListener(v[0], v[1]));
