@@ -1,4 +1,5 @@
 // #region | Imports
+import { Item } from "./item.js";
 import { UserNotification } from "./user_notification.js";
 // #endregion
 
@@ -147,6 +148,9 @@ function searchResearchTree() {}
 function searchRecipes() {}
 
 function runInit() {
+
+	// Instantiate all items
+	Item.instantiateAllItems();
 }
 // #endregion
 
