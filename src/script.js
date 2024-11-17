@@ -142,11 +142,11 @@ function toggleAddOutputModal() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
-function shareProduction() {
+function shareProductionCalculation() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
-function sharePower() {
+function sharePowerCalculation() {
 	new UserNotification("TODO", "This is not yet implemented, sorry.", "default", 10000);
 }
 
@@ -227,10 +227,10 @@ const event_list = new Set([
 	[set_recipes_btn, ["click", toggleRecipesModal]],
 	[add_production_input_btn, ["click", toggleAddInputModal]],
 	[add_production_output_btn, ["click", toggleAddOutputModal]],
-	[share_production_btn, ["click", shareProduction]],
-	[share_power_btn, ["click", sharePower]],
 	[research_searchbox, ["input", filterResearchTree]],
 	[recipes_searchbox, ["input", filterRecipes]]
+	[share_production_btn, ["click", shareProductionCalculation]],
+	[share_power_btn, ["click", sharePowerCalculation]],
 ]);
 
 event_list.forEach(([k, v]) => k.addEventListener(v[0], v[1]));
