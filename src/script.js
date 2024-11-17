@@ -35,10 +35,11 @@ const share_power_btn = document.getElementById("share_power_btn");
 // Windows
 const research_window = document.getElementById("research_window");
 const research_searchbox = document.getElementById("research_searchbox");
-const recipes_list = document.getElementById("recipes_list");
+const research_list = document.getElementById("research_list");
 
 const recipes_window = document.getElementById("recipes_window");
 const recipes_searchbox = document.getElementById("recipes_searchbox");
+const recipes_list = document.getElementById("recipes_list");
 
 // Canvases
 const production_calculator_canvas = document.getElementById("production_calculator_canvas");
