@@ -189,6 +189,65 @@ function setupRecipesWindow() {
 	}
 }
 
+/**
+ * Get parsed and assorted search parameters
+ * @returns {Array?}
+ */
+function getParsedSearchParameters() {
+	if (!window.location.search) return;
+
+	// Get all search parameters
+	const search_params = new URLSearchParams(window.location.search);
+
+	// Get if power calculator is target
+	const power_calculator = (search_params.get("pwr") === "1");
+
+	// Try parsing selected research, recipes and io data
+	let research, recipes, data;
+	try {
+		research = JSON.parse(search_params.get("research") ?? "[]");
+		recipes = JSON.parse(search_params.get("recipes") ?? "[]");
+		data = JSON.parse(search_params.get("data") ?? "[]");
+	} catch (error) {
+		new UserNotification(
+			"Invalid JSON",
+			`The JSON parameters (after the question mark in the URL) seem to be malformed.<br>
+			If you've got some time, could you maybe <a target=\"_blank\" href=\"https://github.com/TimKoenig96/coi-calculator/issues/new\">create an issue</a>?<br>
+			To fix this, remove everything after the question mark and recreate the calculation.`,
+			"error"
+		);
+
+		return;
+	}
+
+	// Return parsed parameters
+	return [power_calculator, research, recipes, data];
+}
+
+// Apply parsed search parameters
+function applyParsedSearchParameters([power_calculator, research, recipes, data]) {
+	// TODO: Make this throw an error if values are out of place
+
+	// TODO: Apply all research and recipes selected!
+
+	// If target is power calculator
+	if (power_calculator) {
+
+		// Open the power calculator
+		gotoPowerCalculator();
+
+		// Set the desired power output
+		power_output_field.value = Number(data.power_output ?? 0);
+
+		// TODO: Dispatch input event for calculation!
+
+		return;
+	}
+
+	// Target is production calculator: Add all in- and outputs
+	// TODO
+}
+
 // Spawn the web worker and add a message event listener
 function spawnWorker() {
 	worker = new Worker(new URL("worker.js", import.meta.url), {type: "module"});
@@ -209,6 +268,12 @@ function runInit() {
 
 	// Set up the recipes window
 	setupRecipesWindow();
+
+	// Get parsed search parameters if present
+	const params = getParsedSearchParameters();
+
+	// Parameters found and valid: Apply them
+	if (params) applyParsedSearchParameters();
 
 	// Spawn worker
 	spawnWorker();
