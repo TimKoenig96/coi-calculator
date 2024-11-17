@@ -147,6 +147,8 @@ function searchResearchTree() {}
 // Search for recipes in the recipe window
 function searchRecipes() {}
 
+
+
 // TODO: Add all research nodes ordered in tiers to the research window
 function setupResearchWindow() {}
 
@@ -187,6 +189,12 @@ function setupRecipesWindow() {
 	}
 }
 
+// Spawn the web worker and add a message event listener
+function spawnWorker() {
+	worker = new Worker(new URL("worker.js", import.meta.url), {type: "module"});
+	worker.addEventListener("message", workerMessageHandler);
+}
+
 function runInit() {
 
 	// Instantiate all items
@@ -201,6 +209,9 @@ function runInit() {
 
 	// Set up the recipes window
 	setupRecipesWindow();
+
+	// Spawn worker
+	spawnWorker();
 }
 // #endregion
 
