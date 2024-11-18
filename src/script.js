@@ -155,29 +155,31 @@ function setupResearchWindow() {}
 // Add all recipes ordered in categories to the recipes window
 function setupRecipesWindow() {
 
-	// Create each item category
-	Item.categories.forEach((category_name, category_id) => {
+	// Iterate all categories
+	for (const [category_id, category_name] of Object.entries(Item.category)) {
+
+		// Create and configure element
 		const element = document.createElement("div");
 		element.id = `recipes_category_${category_id}`;
 		element.classList.add("flex_col");
 		element.innerHTML = `
 			<h1>${category_name}</h1>
 			<div id="recipes_category_${category_id}_list">
-				${setupRecipesInCategory(category_id)}
+				${setupRecipesInCategory(category_name)}
 			</div>
 			<hr>
 		`;
 		recipes_list.appendChild(element);
-	});
+	}
 
-	// Setting up recipes for a single category
-	function setupRecipesInCategory(category_id) {
+	// Setting up all recipes for a single category
+	function setupRecipesInCategory(category) {
 		const retval = [];
 
 		// Get all items in category
-		const items = Item.getItemsByCategoryId(category_id);
+		const items = Item.getItemsInCategory(category);
 
-		// Iterate all items in category
+		// Iterate all returned items
 		items.forEach((item) => {
 			// Todo, once recipes are instantiated:
 			// - Get all recipes for `item`
@@ -185,6 +187,7 @@ function setupRecipesWindow() {
 			// - Once done, return `retval` joined by nothing
 		});
 
+		// Temporarily return a joined string of all returned items
 		return items.map(sub_arr => sub_arr.name).join(", ");
 	}
 }
@@ -257,7 +260,7 @@ function spawnWorker() {
 function runInit() {
 
 	// Instantiate all items
-	Item.instantiateAllItems();
+	Item.instantiateAll();
 
 	// TODO: Instantiate all buildings and recipes
 	// Building.instantiateAllBuildings();
@@ -272,7 +275,7 @@ function runInit() {
 	// Get parsed search parameters if present
 	const params = getParsedSearchParameters();
 
-	// Parameters found and valid: Apply them
+	// Apply search parameters if they exist
 	if (params) applyParsedSearchParameters();
 
 	// Spawn worker
