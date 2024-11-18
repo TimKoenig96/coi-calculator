@@ -1,4 +1,5 @@
 // #region | Imports
+import { Building } from "./building.js";
 import { Item } from "./item.js";
 import { UserNotification } from "./user_notification.js";
 // #endregion
@@ -262,9 +263,11 @@ function runInit() {
 	// Instantiate all items
 	Item.instantiateAll();
 
-	// TODO: Instantiate all buildings and recipes
-	// Building.instantiateAllBuildings();
-	// Recipe.instantiateAllRecipes();
+	// Instantiate all buildings
+	Building.instantiateAll();
+
+	// TODO: Instantiate all recipes
+	// Recipe.instantiateAll();
 
 	// Set up the research window
 	// setupResearchWindow();
