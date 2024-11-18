@@ -24,10 +24,6 @@ export class Item {
 		MECHANIC: "Mechanic"
 	};
 
-	// Private variables
-	#category;
-	#state;
-
 	/**
 	 * Instantiate an item
 	 * @param {String} name Item name
@@ -38,8 +34,8 @@ export class Item {
 
 		// Set instance variables
 		this.name = name;
-		this.#category = category;
-		this.#state = state;
+		this.category = category;
+		this.state = state;
 
 		// Add to all items array
 		Item.#all_items.push(this);
@@ -263,6 +259,6 @@ export class Item {
 	 * @returns {Item[]} Items or empty array
 	 */
 	static getItemsInCategory(category) {
-		return Item.#all_items.filter((v) => v.#category === category);
+		return Item.#all_items.filter((v) => v.category === category);
 	}
 }
