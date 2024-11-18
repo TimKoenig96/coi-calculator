@@ -3,6 +3,9 @@ export class Item {
 	// All items
 	static #all_items = [];
 
+	// Lookup item by name
+	static #name_to_item = new Map();
+
 	// Item categories
 	static category = {
 		NATURAL_RESOURCE: "Natural Resource",
@@ -39,6 +42,9 @@ export class Item {
 
 		// Add to all items array
 		Item.#all_items.push(this);
+
+		// Add to name to item lookup table
+		Item.#name_to_item.set(name, this);
 	}
 
 	// Instantiate all items
@@ -260,5 +266,14 @@ export class Item {
 	 */
 	static getItemsInCategory(category) {
 		return Item.#all_items.filter((v) => v.category === category);
+	}
+
+	/**
+	 * Get an item by name
+	 * @param {String} name Item name
+	 * @returns {Item?}
+	 */
+	static get(name) {
+		return Item.#name_to_item.get(name);
 	}
 }
