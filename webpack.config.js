@@ -7,12 +7,26 @@ export default (_, {mode}) => {
 	const is_production = (mode === "production");
 
 	return {
-		entry: "./src/script.js",
+		entry: "./src/script.ts",
 
 		output: {
 			path: resolve("./dist/"),
 			filename: "script.js",
 			clean: true
+		},
+
+		module: {
+			rules: [
+				{
+					test: /\.ts$/,
+					use: "ts-loader",
+					exclude: /node-modules/
+				}
+			]
+		},
+
+		resolve: {
+			extensions: [".ts", ".js"]
 		},
 
 		plugins: [
@@ -21,7 +35,8 @@ export default (_, {mode}) => {
 				inject: true,
 				scriptLoading: "module",
 				minify: {
-					removeRedundantAttributes: false
+					removeRedundantAttributes: false,
+					collapseWhitespace: is_production
 				}
 			}),
 
@@ -30,7 +45,7 @@ export default (_, {mode}) => {
 					from: "./src",
 					globOptions: {
 						ignore: [
-							"**/*.js",
+							"**/*.ts",
 							"**/*.html"
 						]
 					}
