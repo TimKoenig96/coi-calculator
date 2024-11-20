@@ -1,6 +1,12 @@
+// #region | Imports
+import { UserNotification, NotificationTypes } from "./UserNotification";
+// #endregion
+
+
 // #region | Variables
 let research_open: boolean = false;
 let recipes_open: boolean = false;
+let parameters_loaded: boolean = false;
 // #endregion
 
 
@@ -137,6 +143,70 @@ function searchResearchTree(): void {}
 
 // TODO
 function searchRecipes(): void {}
+
+// Attempt to load and apply the search parameters
+function applySearchParameters(): boolean {
+	let research: Record<string, unknown>;
+	let recipes: Record<string, unknown>;
+	let input: Record<string, unknown>;
+	let output: Record<string, unknown>;
+
+	// Get current parameters
+	const search_parameters: URLSearchParams = new URLSearchParams(window.location.search);
+
+	// Get if power calculator is target
+	const power_calculator: boolean = (search_parameters.get("pwr") === "1");
+
+	// Try parsing research, recipes, input and output
+	try {
+		research = JSON.parse(search_parameters.get("research") ?? "{}");
+		recipes = JSON.parse(search_parameters.get("recipes") ?? "{}");
+		input = JSON.parse(search_parameters.get("input") ?? "{}");
+		output = JSON.parse(search_parameters.get("output") ?? "{}");
+	} catch (error) {
+
+		// Notify user
+		new UserNotification(
+			"Invalid JSON",
+			`
+			The JSON parameters (after the question mark in the URL) seem to be malformed.<br>
+			If you've got some time, could you maybe <a target=\"_blank\" href=\"https://github.com/TimKoenig96/coi-calculator/issues/new\">create an issue</a>?<br>
+			To fix this, remove everything after the question mark and recreate the calculation.
+			`,
+			NotificationTypes.ERROR
+		);
+
+		// Indicate no success
+		return false;
+	}
+
+	// TODO: Apply selected research and recipes to classes
+	// If it fails, show error and return false
+	// If it succeeds, continue
+
+	// If the target is the power calculator
+	if (power_calculator) {
+
+		// Switch to the power calculator
+		gotoPowerCalculator();
+
+		// Set the power output field value
+		if (power_output_field) power_output_field.value = String(output.power ?? "0");
+
+		// TODO: Trigger the power calculation
+	}
+
+	// Target is the regular calculator
+	else {
+
+		// TODO:
+		// - Add all in- and outputs to UI and backend
+		// - Trigger the production calculation
+	}
+
+	// Successfully loaded and applied from search parameters
+	return true;
+}
 // #endregion
 
 
@@ -162,3 +232,10 @@ event_list.forEach(([element, event_name, target_function]) => {
 });
 // #endregion
 
+
+// Initialize
+(function() {
+
+	// When search parameters are present, attempt applying them
+	if (window.location.search) parameters_loaded = applySearchParameters();
+})();
