@@ -1,7 +1,7 @@
 // #region | Imports
-import { Building } from "./building.js";
-import { Item } from "./item.js";
 import { UserNotification } from "./user_notification.js";
+import { ItemCategories, Items, Buildings, Recipes, Researches } from "./data.js";
+import { Item } from "./item.js";
 // #endregion
 
 
@@ -157,7 +157,7 @@ function setupResearchWindow() {}
 function setupRecipesWindow() {
 
 	// Iterate all categories
-	for (const [category_id, category_name] of Object.entries(Item.category)) {
+	for (const [category_id, category_name] of Object.entries(ItemCategories)) {
 
 		// Create and configure element
 		const element = document.createElement("div");
@@ -259,15 +259,6 @@ function spawnWorker() {
 }
 
 function runInit() {
-
-	// Instantiate all items
-	Item.instantiateAll();
-
-	// Instantiate all buildings
-	Building.instantiateAll();
-
-	// TODO: Instantiate all recipes
-	// Recipe.instantiateAll();
 
 	// Set up the research window
 	// setupResearchWindow();
