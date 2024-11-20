@@ -1,5 +1,5 @@
 // #region | Imports
-import { UserNotification, NotificationTypes } from "./UserNotification";
+import { UserNotification, NotificationTypes } from "./components/UserNotification";
 // #endregion
 
 
