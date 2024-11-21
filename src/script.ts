@@ -144,12 +144,22 @@ function searchResearchTree(): void {}
 // TODO
 function searchRecipes(): void {}
 
+// TODO
+function applyLoadedResearch(researches: number[]): boolean {
+	return false;
+}
+
+// TODO
+function applyLoadedRecipes(recipes: number[]): boolean {
+	return false;
+}
+
 // Attempt to load and apply the search parameters
-function applySearchParameters(): boolean {
-	let research: Record<string, unknown>;
-	let recipes: Record<string, unknown>;
-	let input: Record<string, unknown>;
-	let output: Record<string, unknown>;
+function parseSearchParameters(): boolean {
+	let researches: number[];
+	let recipes: number[];
+	let inputs: ItemQuantity[];
+	let outputs: ItemQuantity[];
 
 	// Get current parameters
 	const search_parameters: URLSearchParams = new URLSearchParams(window.location.search);
@@ -157,12 +167,20 @@ function applySearchParameters(): boolean {
 	// Get if power calculator is target
 	const power_calculator: boolean = (search_parameters.get("pwr") === "1");
 
-	// Try parsing research, recipes, input and output
+	// Try parsing researches, recipes, inputs and outputs
 	try {
-		research = JSON.parse(search_parameters.get("research") ?? "{}");
-		recipes = JSON.parse(search_parameters.get("recipes") ?? "{}");
-		input = JSON.parse(search_parameters.get("input") ?? "{}");
-		output = JSON.parse(search_parameters.get("output") ?? "{}");
+
+		// Parse all keys
+		researches = JSON.parse(search_parameters.get("research") ?? "[]") as number[];
+		recipes = JSON.parse(search_parameters.get("recipes") ?? "[]") as number[];
+		inputs = JSON.parse(search_parameters.get("input") ?? "[]") as ItemQuantity[];
+		outputs = JSON.parse(search_parameters.get("output") ?? "[]") as ItemQuantity[];
+
+		// Throw error if any of them aren't arrays
+		[researches, recipes, inputs, outputs].forEach((x) => {
+			if (!Array.isArray(x)) throw new Error();
+		});
+
 	} catch (error) {
 
 		// Notify user
@@ -180,9 +198,12 @@ function applySearchParameters(): boolean {
 		return false;
 	}
 
-	// TODO: Apply selected research and recipes to classes
-	// If it fails, show error and return false
-	// If it succeeds, continue
+	// Apply selected researches and recipes to classes
+	const research_apply_success: boolean = applyLoadedResearch(researches);
+	const recipes_apply_success: boolean = applyLoadedRecipes(recipes);
+
+	// If either one failed, return false
+	if (!(research_apply_success && recipes_apply_success)) return false;
 
 	// If the target is the power calculator
 	if (power_calculator) {
@@ -190,8 +211,8 @@ function applySearchParameters(): boolean {
 		// Switch to the power calculator
 		gotoPowerCalculator();
 
-		// Set the power output field value
-		if (power_output_field) power_output_field.value = String(output.power ?? "0");
+		// TODO: Set the power output field value
+		// if (power_output_field) power_output_field.value = String(outputs.power ?? "0");
 
 		// TODO: Trigger the power calculation
 	}
@@ -237,5 +258,5 @@ event_list.forEach(([element, event_name, target_function]) => {
 (function() {
 
 	// When search parameters are present, attempt applying them
-	if (window.location.search) parameters_loaded = applySearchParameters();
+	if (window.location.search) parameters_loaded = parseSearchParameters();
 })();
