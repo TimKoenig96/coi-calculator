@@ -1,4 +1,4 @@
 interface ItemQuantity {
-	item: Item;
+	item: ItemID;
 	quantity: number;
 }
