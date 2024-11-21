@@ -69,10 +69,10 @@ class Building {
 const buildings: Record<BuildingID, Building> = {
 
 	// #region | 1xx General Machines
-	[BuildingID.ASSEMBLY_I]: new Building(BuildingID.ASSEMBLY_I, "Assembly I", 4, 0.04, 0, 0, 0, 0, [{item: items[ItemID.CONSTRUCTION_PARTS], quantity: 25}]),
-	[BuildingID.ASSEMBLY_II]: new Building(BuildingID.ASSEMBLY_II, "Assembly II", 6, 0.08, 0, 2, 0, 0, [{item: items[ItemID.CONSTRUCTION_PARTS_II], quantity: 30}]),
-	[BuildingID.ASSEMBLY_III]: new Building(BuildingID.ASSEMBLY_III, "Assembly III", 8, 0.15, 0, 4, 0, 0, [{item: items[ItemID.CONSTRUCTION_PARTS_III], quantity: 40}]),
-	[BuildingID.ASSEMBLY_ROBOTIC]: new Building(BuildingID.ASSEMBLY_ROBOTIC, "Assembly (Robotic)", 2, 0.25, 4, 0, 4, 0, [{item: items[ItemID.CONSTRUCTION_PARTS_IV], quantity: 40}])
+	[BuildingID.ASSEMBLY_I]: new Building(BuildingID.ASSEMBLY_I, "Assembly I", 4, 0.04, 0, 0, 0, 0, [{item: ItemID.CONSTRUCTION_PARTS, quantity: 25}]),
+	[BuildingID.ASSEMBLY_II]: new Building(BuildingID.ASSEMBLY_II, "Assembly II", 6, 0.08, 0, 2, 0, 0, [{item: ItemID.CONSTRUCTION_PARTS_II, quantity: 30}]),
+	[BuildingID.ASSEMBLY_III]: new Building(BuildingID.ASSEMBLY_III, "Assembly III", 8, 0.15, 0, 4, 0, 0, [{item: ItemID.CONSTRUCTION_PARTS_III, quantity: 40}]),
+	[BuildingID.ASSEMBLY_ROBOTIC]: new Building(BuildingID.ASSEMBLY_ROBOTIC, "Assembly (Robotic)", 2, 0.25, 4, 0, 4, 0, [{item: ItemID.CONSTRUCTION_PARTS_IV, quantity: 40}])
 	// #endregion
 
 	// #region | 2xx Water Extraction & Processing
