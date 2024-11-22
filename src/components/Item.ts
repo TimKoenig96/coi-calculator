@@ -259,7 +259,7 @@ const items: Record<ItemID, Item> = {
 	[ItemID.URANIUM_ORE]: new Item(ItemID.URANIUM_ORE, "Uranium Ore", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
 	[ItemID.WOOD]: new Item(ItemID.WOOD, "Wood", ItemCategory.NATURAL_RESOURCE, ItemState.UNIT),
 	[ItemID.WATER]: new Item(ItemID.WATER, "Water", ItemCategory.NATURAL_RESOURCE, ItemState.FLUID),
-// #endregion
+	// #endregion
 
 	// #region | Semi-Processed Resources
 	[ItemID.ACID]: new Item(ItemID.ACID, "Acid", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.FLUID),
