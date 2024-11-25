@@ -1,5 +1,3 @@
-const notifs_container: HTMLElement | null = document.getElementById("notifs_container");
-
 export enum NotificationTypes {
 	DEFAULT = "default",
 	SUCCESS = "success",
@@ -10,6 +8,7 @@ export enum NotificationTypes {
 export class UserNotification {
 	private element: HTMLElement;
 	private timeout: number | null = null;
+	private static readonly notifs_container: HTMLElement | null = document.getElementById("notifs_container");
 
 	constructor(header: string, message: string, style: NotificationTypes, timer: number = 0) {
 
@@ -27,7 +26,7 @@ export class UserNotification {
 			this.timeout = window.setTimeout(this.removeNotif.bind(this), timer);
 
 		// Append to notification container
-		notifs_container?.appendChild(this.element);
+		UserNotification.notifs_container?.appendChild(this.element);
 	}
 
 	private removeNotif(e: Event) {
