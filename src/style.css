@@ -20,7 +20,7 @@
 
 	--notif_default: hsla(215, 60%, 50%, 0.3);
 	--notif_success: hsla(110, 80%, 40%, 0.35);
-	--notif_warning: hsla(55, 95%, 50%, 0.35);
+	--notif_warning: hsla(45, 95%, 50%, 0.35);
 	--notif_error: hsla(0, 80%, 40%, 0.35);
 	
 	--text_primary: #eee;
@@ -223,8 +223,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #notifs_container > div {
-	width: fit-content;
-	max-width: 100vw;
+	max-width: 60vw;
 	margin: var(--spacing_medium) var(--spacing_medium) 0;
 	padding: var(--spacing_large);
 	text-align: center;
@@ -234,7 +233,6 @@ input[type="number"]::-webkit-inner-spin-button {
 	backdrop-filter: blur(var(--spacing_medium));
 	z-index: 100;
 	color: #fff;
-	user-select: none;
 	pointer-events: auto;
 }
 
@@ -248,5 +246,33 @@ input[type="number"]::-webkit-inner-spin-button {
 
 #notifs_container > div.error {
 	background-color: var(--notif_error);
+}
+
+#notifs_container > div .button {
+	margin-top: var(--spacing_medium);
+	background-color: var(--notif_default);
+	filter: saturate(60%);
+	width: 100%;
+}
+
+#notifs_container > div.success .button {
+	background-color: var(--notif_success);
+}
+
+#notifs_container > div.warning .button {
+	background-color: var(--notif_warning);
+}
+
+#notifs_container > div.error .button {
+	background-color: var(--notif_error);
+}
+/* #endregion */
+
+
+/* #region | Portrait screens */
+@media screen and (orientation: portrait) {
+	#notifs_container > div {
+		max-width: 100vw;
+	}
 }
 /* #endregion */
