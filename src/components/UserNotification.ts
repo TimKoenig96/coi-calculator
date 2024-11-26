@@ -9,10 +9,10 @@ export class UserNotification {
 	private static readonly container = document.getElementById("notifs_container") as HTMLDivElement;
 	protected readonly notification: HTMLDivElement;
 	protected readonly button_container: HTMLDivElement;
+	private readonly timeout: number | undefined;
 	private readonly heading: string;
 	private readonly message: string;
 	private readonly style: NotificationType;
-	private readonly duration: number;
 
 	// Constructor
 	constructor(
@@ -25,7 +25,6 @@ export class UserNotification {
 		this.heading = heading;
 		this.message = message;
 		this.style = style;
-		this.duration = duration;
 
 		// Create notification
 		this.notification = this.createNotification();
@@ -38,6 +37,9 @@ export class UserNotification {
 
 		// Show notification
 		UserNotification.container.appendChild(this.notification);
+
+		// Self-delete if duration was provided
+		if (duration > 0) this.timeout = window.setTimeout(this.closeNotification.bind(this), duration);
 	}
 
 	// Create a notification
@@ -87,6 +89,11 @@ export class UserNotification {
 
 	// Close and delete notification
 	protected closeNotification(): void {
+
+		// Remove notification element
 		this.notification.remove();
+
+		// Clear timeout if set
+		if (this.timeout) window.clearTimeout(this.timeout);
 	}
 }
