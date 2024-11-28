@@ -1,3 +1,5 @@
+import { RecipeID } from "./components/Recipe";
+import { researches, ResearchID } from "./components/Research";
 import { NotificationType, UserNotification } from "./components/UserNotification";
 import { UserPrompt } from "./components/UserPrompt";
 
@@ -15,8 +17,8 @@ interface LoadedSettings {
 }
 
 interface ParsedSettings {
-	readonly research: number[];
-	readonly recipes: number[];
+	readonly research: ResearchID[];
+	readonly recipes: RecipeID[];
 	readonly inputs: number[];
 	readonly outputs: number[];
 }
@@ -29,6 +31,11 @@ function applyParsedSettings(settings: ParsedSettings | null): boolean {
 
 	// No parameters provided, return no success
 	if (settings === null) return false;
+
+	// Apply all researches
+	settings.research.forEach((research_id) => {
+		researches[research_id].unlock();
+	});
 
 	// FIXME: Just returning successful if settings are provided at all for now.
 	return true;
@@ -44,8 +51,8 @@ function parseLoadedSettings(settings: LoadedSettings | null): ParsedSettings | 
 	try {
 
 		// Parse all necessary keys
-		const research: number[] = JSON.parse(settings.research ?? "[]");
-		const recipes: number[] = JSON.parse(settings.recipes ?? "[]");
+		const research: ResearchID[] = JSON.parse(settings.research ?? "[]");
+		const recipes: RecipeID[] = JSON.parse(settings.recipes ?? "[]");
 		const inputs: number[] = JSON.parse(settings.inputs ?? "[]");
 		const outputs: number[] = JSON.parse(settings.outputs ?? "[]");
 

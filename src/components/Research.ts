@@ -1,7 +1,7 @@
 import { BuildingID, buildings } from "./Building";
 import { RecipeID, recipes } from "./Recipe";
 
-enum ResearchID {
+export enum ResearchID {
 	EXAMPLE_RESEARCH_1 = 1,
 	EXAMPLE_RESEARCH_2 = 2,
 	EXAMPLE_RESEARCH_3 = 3
@@ -83,7 +83,7 @@ class Research {
 	}
 }
 
-const researches: Record<ResearchID, Research> = {
+export const researches: Record<ResearchID, Research> = {
 	[ResearchID.EXAMPLE_RESEARCH_1]: new Research("Example Research 1", [], [ResearchID.EXAMPLE_RESEARCH_3]),
 	[ResearchID.EXAMPLE_RESEARCH_2]: new Research("Example Research 2", [], [ResearchID.EXAMPLE_RESEARCH_3]),
 	[ResearchID.EXAMPLE_RESEARCH_3]: new Research("Example Research 3", [ResearchID.EXAMPLE_RESEARCH_1, ResearchID.EXAMPLE_RESEARCH_2])
