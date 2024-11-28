@@ -6,11 +6,14 @@ export enum RecipeID {
 
 class Recipe {
 	public unlocked: boolean;
+	public active: boolean;
 
 	constructor(
-		unlocked: boolean = false
+		unlocked: boolean = false,
+		active: boolean = true
 	) {
 		this.unlocked = unlocked;
+		this.active = active;
 	}
 }
 
