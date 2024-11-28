@@ -1,3 +1,5 @@
+import { BuildingID, buildings } from "./Building";
+
 enum ResearchID {
 	EXAMPLE_RESEARCH_1 = 1,
 	EXAMPLE_RESEARCH_2 = 2,
@@ -9,16 +11,16 @@ class Research {
 	private unlocked: boolean;
 	private readonly requirements: ResearchID[];
 	private readonly required_by: ResearchID[];
+	private readonly building_unlocks: BuildingID[];
 
-	// TODO: Replace with BuildingID[] and RecipeID[] respectively
-	private readonly building_unlocks: [];
+	// TODO: Replace with RecipeID[]
 	private readonly recipe_unlocks: [];
 
 	constructor(
 		name: string,
 		requirements: ResearchID[] = [],
 		required_by: ResearchID[] = [],
-		building_unlocks: [] = [], // FIXME
+		building_unlocks: BuildingID[] = [],
 		recipe_unlocks: [] = [], // FIXME
 		unlocked: boolean = false
 	) {
@@ -47,7 +49,12 @@ class Research {
 		// Unlock self
 		this.unlocked = true;
 
-		// TODO: Iterate buildings and recipes that this research unlocked!
+		// Iterate buildings that this research unlocked and unlock them
+		this.building_unlocks.forEach((building_id) => {
+			buildings[building_id].unlocked = true;
+		});
+
+		// TODO: Iterate recipes that this research unlocked!
 	}
 
 	// Lock research
@@ -62,7 +69,12 @@ class Research {
 		// Lock self
 		this.unlocked = false;
 
-		// TODO: Iterate buildings and recipes that this research locked!
+		// Iterate buildings that this research unlocked and lock them
+		this.building_unlocks.forEach((building_id) => {
+			buildings[building_id].unlocked = false;
+		});
+
+		// TODO: Iterate recipes that this research locked!
 	}
 }
 
