@@ -1,4 +1,5 @@
 import { BuildingID, buildings } from "./Building";
+import { RecipeID, recipes } from "./Recipe";
 
 enum ResearchID {
 	EXAMPLE_RESEARCH_1 = 1,
@@ -12,16 +13,14 @@ class Research {
 	private readonly requirements: ResearchID[];
 	private readonly required_by: ResearchID[];
 	private readonly building_unlocks: BuildingID[];
-
-	// TODO: Replace with RecipeID[]
-	private readonly recipe_unlocks: [];
+	private readonly recipe_unlocks: RecipeID[];
 
 	constructor(
 		name: string,
 		requirements: ResearchID[] = [],
 		required_by: ResearchID[] = [],
 		building_unlocks: BuildingID[] = [],
-		recipe_unlocks: [] = [], // FIXME
+		recipe_unlocks: RecipeID[] = [],
 		unlocked: boolean = false
 	) {
 		this.name = name;
@@ -54,7 +53,10 @@ class Research {
 			buildings[building_id].unlocked = true;
 		});
 
-		// TODO: Iterate recipes that this research unlocked!
+		// Iterate recipes that this research unlocked and unlock them
+		this.recipe_unlocks.forEach((recipe_id) => {
+			recipes[recipe_id].unlocked = true;
+		});
 	}
 
 	// Lock research
@@ -74,7 +76,10 @@ class Research {
 			buildings[building_id].unlocked = false;
 		});
 
-		// TODO: Iterate recipes that this research locked!
+		// Iterate recipes that this research unlocked and unlock them
+		this.recipe_unlocks.forEach((recipe_id) => {
+			recipes[recipe_id].unlocked = true;
+		});
 	}
 }
 
