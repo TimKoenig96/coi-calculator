@@ -2,7 +2,7 @@ import { ItemCount, ItemID } from "./Item";
 
 export enum BuildingID {}
 
-class Building {
+export class Building {
 	public readonly name: string;
 	public readonly workers: number;
 	public readonly electricity: number;
