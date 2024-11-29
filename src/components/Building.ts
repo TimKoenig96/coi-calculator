@@ -1,10 +1,6 @@
 import { ItemCount, ItemID } from "./Item";
 
-export enum BuildingID {
-	EXAMPLE_BUILDING_1 = 1,
-	EXAMPLE_BUILDING_2 = 2,
-	EXAMPLE_BUILDING_3 = 3
-}
+export enum BuildingID {}
 
 class Building {
 	public readonly name: string;
@@ -40,8 +36,4 @@ class Building {
 	}
 }
 
-export const buildings: Record<BuildingID, Building> = {
-	[BuildingID.EXAMPLE_BUILDING_1]: new Building("Example Building 1", 2, 0.01, 0, 5, 0, 0, {[ItemID.EXAMPLE_ITEM_3]: 10}, true),
-	[BuildingID.EXAMPLE_BUILDING_2]: new Building("Example Building 2", 4, 0.02, 0, 0, 2, 0, {[ItemID.EXAMPLE_ITEM_3]: 20}),
-	[BuildingID.EXAMPLE_BUILDING_3]: new Building("Example Building 3", 10, 0.05, 2, 0, 0, 1, {[ItemID.EXAMPLE_ITEM_3]: 40})
-};
+export const buildings: Record<BuildingID, Building> = {};
