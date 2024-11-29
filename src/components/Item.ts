@@ -14,6 +14,15 @@ enum ItemCategory {
 	WASTE_AND_POLLUTION = 6
 }
 
+enum ItemState {
+	LOOSE = 0,
+	UNIT = 1,
+	FLUID = 2,
+	MOLTEN = 3,
+	MECHANICAL = 4,
+	VIRTUAL = 5
+}
+
 export type ItemCount = Partial<{
 	[key in ItemID]: number
 }>;
@@ -21,18 +30,21 @@ export type ItemCount = Partial<{
 class Item {
 	public readonly name: string;
 	private readonly category: ItemCategory;
+	private readonly state: ItemState;
 
 	constructor(
 		name: string,
-		category: ItemCategory
+		category: ItemCategory,
+		state: ItemState
 	) {
 		this.name = name;
 		this.category = category;
+		this.state = state;
 	}
 }
 
 const items: Record<ItemID, Item> = {
-	[ItemID.EXAMPLE_ITEM_1]: new Item("Example Item 1", ItemCategory.NATURAL_RESOURCE),
-	[ItemID.EXAMPLE_ITEM_2]: new Item("Example Item 2", ItemCategory.NATURAL_RESOURCE),
-	[ItemID.EXAMPLE_ITEM_3]: new Item("Example Item 3", ItemCategory.CRAFTED_MATERIAL)
+	[ItemID.EXAMPLE_ITEM_1]: new Item("Example Item 1", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
+	[ItemID.EXAMPLE_ITEM_2]: new Item("Example Item 2", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
+	[ItemID.EXAMPLE_ITEM_3]: new Item("Example Item 3", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT)
 };
