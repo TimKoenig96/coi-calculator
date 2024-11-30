@@ -6,13 +6,16 @@ import { UserPrompt } from "./components/UserPrompt";
 // #region | Variables
 let settings_applied_via_url: boolean = false; // Prevents saving edits to local storage
 let researches_window_open: boolean = false;
+let recipes_window_open: boolean = false;
 // #endregion
 
 
 // #region | HTML Elements
 const set_researches_btn = document.getElementById("set_researches_btn") as HTMLDivElement;
+const set_recipes_btn = document.getElementById("set_recipes_btn") as HTMLDivElement;
 
 const researches_window = document.getElementById("researches_window") as HTMLDivElement;
+const recipes_window = document.getElementById("recipes_window") as HTMLDivElement;
 // #endregion
 
 
@@ -53,10 +56,29 @@ interface ParsedSettings {
 // Toggle the researches window
 function toggleResearchesWindow(): void {
 
-	// Toggle research related classes and variables
+	// Toggle research related classes
 	researches_window.classList.toggle("hidden");
 	set_researches_btn.classList.toggle("active");
+	
+	// If recipes window was open before, close it
+	if (recipes_window_open) toggleRecipesWindow();
+
+	// Toggle researches window variable
 	researches_window_open = !researches_window_open;
+}
+
+// Toggle the recipes window
+function toggleRecipesWindow(): void {
+
+	// Toggle recipe related classes
+	recipes_window.classList.toggle("hidden");
+	set_recipes_btn.classList.toggle("active");
+	
+	// If researches window was open before, close it
+	if (researches_window_open) toggleResearchesWindow();
+
+	// Toggle recipes window variable
+	recipes_window_open = !recipes_window_open;
 }
 
 // Attempt to apply all parsed settings
@@ -258,7 +280,8 @@ async function init() {
 
 	// Add event listeners to UI elements
 	const event_config: [HTMLElement, string, EventListener][] = [
-		[set_researches_btn, "click", toggleResearchesWindow]
+		[set_researches_btn, "click", toggleResearchesWindow],
+		[set_recipes_btn, "click", toggleRecipesWindow]
 	];
 
 	event_config.forEach(([element, event_type, handler]) => {
