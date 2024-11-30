@@ -5,6 +5,14 @@ import { UserPrompt } from "./components/UserPrompt";
 
 // #region | Variables
 let settings_applied_via_url: boolean = false; // Prevents saving edits to local storage
+let researches_window_open: boolean = false;
+// #endregion
+
+
+// #region | HTML Elements
+const set_researches_btn = document.getElementById("set_researches_btn") as HTMLDivElement;
+
+const researches_window = document.getElementById("researches_window") as HTMLDivElement;
 // #endregion
 
 
@@ -42,6 +50,15 @@ interface ParsedSettings {
 
 
 // #region | Functions
+// Toggle the researches window
+function toggleResearchesWindow(): void {
+
+	// Toggle research related classes and variables
+	researches_window.classList.toggle("hidden");
+	set_researches_btn.classList.toggle("active");
+	researches_window_open = !researches_window_open;
+}
+
 // Attempt to apply all parsed settings
 function applyParsedSettings(settings: ParsedSettings): void {
 
@@ -238,6 +255,15 @@ async function init() {
 			return;
 		}
 	}
+
+	// Add event listeners to UI elements
+	const event_config: [HTMLElement, string, EventListener][] = [
+		[set_researches_btn, "click", toggleResearchesWindow]
+	];
+
+	event_config.forEach(([element, event_type, handler]) => {
+		element.addEventListener(event_type, handler);
+	});
 }
 // #endregion
 
