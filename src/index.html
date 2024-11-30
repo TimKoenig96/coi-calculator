@@ -21,68 +21,6 @@
 		<!-- #region | Sidebar -->
 		<div id="sidebar" class="flex_col">
 
-			<!-- Production Calculator button -->
-			<div class="button flex_row active" id="production_calculator_btn">
-				<svg viewBox="0 0 100 100">
-					<mask id="factory_icon_cutout">
-						<rect width="100" height="100" fill="#fff" />
-						<rect x="10" y="61" width="14" height="23" fill="black" rx="3" />
-						<rect x="34" y="61" width="14" height="23" fill="black" rx="3" />
-						<rect x="58" y="61" width="14" height="23" fill="black" rx="3" />
-					</mask>
-					<path class="visible" d="
-						M84,3
-						L84,48
-						L3,48
-						L3,97
-						L97,97
-						L97,3
-						Z
-
-						M3,37
-						L19,37
-						L19,21
-						Z
-
-						M30,37
-						L46,37
-						L46,21
-						Z
-
-						M57,37
-						L73,37
-						L73,21
-						Z
-					" mask="url(#factory_icon_cutout)" />
-				</svg>
-				<div class="vr"></div>
-				<span>
-					Production Calculator
-				</span>
-			</div>
-
-			<!-- Power Calculator button -->
-			<div class="button flex_row" id="power_calculator_btn">
-				<svg viewBox="0 0 100 100">
-					<path class="visible" d="
-						M37,3
-						L21,55
-						L46,55
-						L32,97
-						L81,42
-						L51,42
-						L74,3
-						Z
-					" />
-				</svg>
-				<div class="vr"></div>
-				<span>
-					Power Calculator
-				</span>
-			</div>
-
-			<hr>
-
 			<!-- Set Research button -->
 			<div class="button flex_row" id="set_research_btn">
 				<svg viewBox="0 0 100 100">
@@ -141,31 +79,23 @@
 
 			<hr>
 
-			<!-- Production Inputs -->
-			<div class="flex_col" id="production_inputs_container">
+			<!-- Inputs -->
+			<div class="flex_col">
 				<h2>Inputs</h2>
-				<div id="production_input_list_container" class="io_list"></div>
-				<div class="button" id="add_production_input_btn">Add Input</div>
+				<div id="input_list" class="io_list"></div>
+				<div class="button" id="add_input_btn">Add Input</div>
 				<hr>
 			</div>
 
-			<!-- Production Outputs -->
-			<div class="flex_col" id="production_outputs_container">
+			<!-- Outputs -->
+			<div class="flex_col">
 				<h2>Outputs</h2>
-				<div id="production_output_list_container" class="io_list"></div>
-				<div class="button" id="add_production_output_btn">Add Output</div>
+				<div id="output_list" class="io_list"></div>
+				<div class="button" id="add_output_btn">Add Output</div>
 				<hr>
 			</div>
 
-			<!-- Power Output -->
-			<div class="flex_col hidden" id="power_output_container">
-				<h2>Power Output (MW)</h2>
-				<input type="number" id="power_output_field" min="0">
-				<hr>
-			</div>
-
-			<div class="button flex_row" id="share_production_btn">Share Production Calculation</div>
-			<div class="button flex_row hidden" id="share_power_btn">Share Power Calculation</div>
+			<div class="button flex_row" id="share_calculation_btn">Share Calculation</div>
 
 			<div id="footer">
 				<hr>
