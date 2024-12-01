@@ -193,6 +193,13 @@ input[type="number"]::-webkit-inner-spin-button {
 	box-shadow: 0 0 var(--spacing_medium) 0 black;
 }
 
+.researches_lists_container > div {
+	margin: var(--spacing_medium) 0;
+}
+
+#researches_container .button.active::before { content: "🟢 "; }
+#researches_container .button.inactive::before { content: "🔴 "; }
+
 #researches_searchbox,
 #recipes_searchbox {
 	flex-grow: 1;
