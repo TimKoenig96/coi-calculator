@@ -311,6 +311,9 @@ async function loadParseAndApplySettings(via_url: boolean): Promise<boolean> {
 // Initialize script
 async function init() {
 
+	// Instantiate all researches
+	Research.instantiateAll();
+
 	// Set up all researches in UI
 	setupResearchesWindow();
 

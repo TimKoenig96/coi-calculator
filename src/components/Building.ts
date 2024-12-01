@@ -11,7 +11,7 @@ export class Building {
 	public readonly maintenance_2: number;
 	public readonly maintenance_3: number;
 	public readonly build_cost: ItemCount;
-	public unlocked: boolean;
+	public locked: boolean;
 
 	constructor(
 		name: string,
@@ -22,7 +22,7 @@ export class Building {
 		maintenance_2: number,
 		maintenance_3: number,
 		build_cost: ItemCount,
-		unlocked: boolean = false
+		locked: boolean = true
 	) {
 		this.name = name;
 		this.workers = workers;
@@ -32,7 +32,7 @@ export class Building {
 		this.maintenance_2 = maintenance_2;
 		this.maintenance_3 = maintenance_3;
 		this.build_cost = build_cost;
-		this.unlocked = unlocked;
+		this.locked = locked;
 	}
 }
 

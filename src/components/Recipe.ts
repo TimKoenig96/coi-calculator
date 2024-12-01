@@ -8,7 +8,7 @@ class Recipe {
 	public readonly time: number;
 	public readonly input: ItemCount;
 	public readonly output: ItemCount;
-	public unlocked: boolean;
+	public locked: boolean;
 	public active: boolean;
 
 	constructor(
@@ -16,14 +16,14 @@ class Recipe {
 		time: number,
 		input: ItemCount,
 		output: ItemCount,
-		unlocked: boolean = false,
+		locked: boolean = true,
 		active: boolean = true
 	) {
 		this.producer = buildings[producer];
 		this.time = time;
 		this.input = input;
 		this.output = output;
-		this.unlocked = unlocked;
+		this.locked = locked;
 		this.active = active;
 	}
 }
