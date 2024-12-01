@@ -7,16 +7,26 @@ export enum ResearchID {
 	EXAMPLE_RESEARCH_3 = 3
 }
 
-class Research {
+export enum LabLevel {
+	RESEARCH_1 = "Research I",
+	RESEARCH_2 = "Research II",
+	RESEARCH_3 = "Research III",
+	RESEARCH_4 = "Research IV",
+	RESEARCH_5 = "Research V"
+}
+
+export class Research {
 	public readonly name: string;
-	private unlocked: boolean;
+	public readonly lab_level: LabLevel;
 	private readonly requirements: ResearchID[];
 	private readonly required_by: ResearchID[];
 	private readonly building_unlocks: BuildingID[];
 	private readonly recipe_unlocks: RecipeID[];
+	private unlocked: boolean;
 
 	constructor(
 		name: string,
+		lab_level: LabLevel,
 		requirements: ResearchID[] = [],
 		required_by: ResearchID[] = [],
 		building_unlocks: BuildingID[] = [],
@@ -24,6 +34,7 @@ class Research {
 		unlocked: boolean = false
 	) {
 		this.name = name;
+		this.lab_level = lab_level;
 		this.requirements = requirements;
 		this.required_by = required_by;
 		this.building_unlocks = building_unlocks;
@@ -84,7 +95,7 @@ class Research {
 }
 
 export const researches: Record<ResearchID, Research> = {
-	[ResearchID.EXAMPLE_RESEARCH_1]: new Research("Example Research 1", [], [ResearchID.EXAMPLE_RESEARCH_3]),
-	[ResearchID.EXAMPLE_RESEARCH_2]: new Research("Example Research 2", [], [ResearchID.EXAMPLE_RESEARCH_3]),
-	[ResearchID.EXAMPLE_RESEARCH_3]: new Research("Example Research 3", [ResearchID.EXAMPLE_RESEARCH_1, ResearchID.EXAMPLE_RESEARCH_2])
+	[ResearchID.EXAMPLE_RESEARCH_1]: new Research("Example Research 1", LabLevel.RESEARCH_1, [], [ResearchID.EXAMPLE_RESEARCH_3]),
+	[ResearchID.EXAMPLE_RESEARCH_2]: new Research("Example Research 2", LabLevel.RESEARCH_2,[], [ResearchID.EXAMPLE_RESEARCH_3]),
+	[ResearchID.EXAMPLE_RESEARCH_3]: new Research("Example Research 3", LabLevel.RESEARCH_3,[ResearchID.EXAMPLE_RESEARCH_1, ResearchID.EXAMPLE_RESEARCH_2])
 };
