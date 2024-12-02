@@ -22,7 +22,6 @@ interface ResearchData {
 	name: string,
 	level: LabLevel,
 	dependencies?: ResearchID[],
-	dependants?: ResearchID[],
 	buildings?: BuildingID[],
 	recipes?: RecipeID[],
 	locked?: boolean
@@ -31,28 +30,24 @@ interface ResearchData {
 // All research data
 const research_data: Record<ResearchID, ResearchData> = {
 	[ResearchID.EXAMPLE_RESEARCH_1]: { name: "Example Research 1", level: LabLevel.RESEARCH_1 },
-	[ResearchID.EXAMPLE_RESEARCH_2]: { name: "Example Research 2", level: LabLevel.RESEARCH_2 },
-	[ResearchID.EXAMPLE_RESEARCH_3]: { name: "Example Research 3", level: LabLevel.RESEARCH_3 }
+	[ResearchID.EXAMPLE_RESEARCH_2]: { name: "Example Research 2", level: LabLevel.RESEARCH_2, dependencies: [ResearchID.EXAMPLE_RESEARCH_1]},
+	[ResearchID.EXAMPLE_RESEARCH_3]: { name: "Example Research 3", level: LabLevel.RESEARCH_3, dependencies: [ResearchID.EXAMPLE_RESEARCH_2]}
 };
-
-// All instantiated researches
-export const researches: Map<ResearchID, Research> = new Map<ResearchID, Research>();
 
 // Individual research
 export class Research {
 	public readonly name: string;
 	public readonly level: LabLevel;
 	private readonly dependencies: ResearchID[];
-	private readonly dependants: ResearchID[];
+	public dependants: ResearchID[] = [];
 	private readonly buildings: BuildingID[];
 	private readonly recipes: RecipeID[];
-	private locked: boolean;
+	public locked: boolean;
 
 	constructor({
 		name,
 		level,
 		dependencies = [],
-		dependants = [],
 		buildings = [],
 		recipes = [],
 		locked = true
@@ -60,15 +55,9 @@ export class Research {
 		this.name = name;
 		this.level = level;
 		this.dependencies = dependencies;
-		this.dependants = dependants;
 		this.buildings = buildings;
 		this.recipes = recipes;
 		this.locked = locked;
-	}
-
-	// Get unlocked status of research
-	public isLocked(): boolean {
-		return this.locked;
 	}
 
 	// Unlock research
@@ -77,7 +66,7 @@ export class Research {
 
 		// Unlock all requirements
 		this.dependencies.forEach((research_id) => {
-			researches.get(research_id)?.unlock();
+			researches[research_id].unlock();
 		});
 
 		// Unlock self
@@ -100,7 +89,7 @@ export class Research {
 
 		// Lock all that depend on current research
 		this.dependants.forEach((research_id) => {
-			researches.get(research_id)?.lock();
+			researches[research_id].lock();
 		});
 
 		// Lock self
@@ -116,11 +105,30 @@ export class Research {
 			recipes[recipe_id].locked = true;
 		});
 	}
-
-	// Instantiate all researches
-	public static instantiateAll(): void {
-		for (const [id, data] of Object.entries(research_data)) {
-			// TODO: Instantiate all. Good luck figuring out the ID, future me.
-		}
-	}
 }
+
+// Storing dependencies
+const dependencies: Map<ResearchID, ResearchID> = new Map<ResearchID, ResearchID>();
+
+// Instantiate all researches
+export const researches: Record<ResearchID, Research> = Object.fromEntries(
+
+	// Filter enum for numerical IDs only
+	Object.values(ResearchID)
+		.filter(value => typeof value === "number")
+		.map(research_id => {
+
+			// Add all dependencies to dependencies map
+			research_data[research_id].dependencies?.forEach(dependency_id => {
+				dependencies.set(research_id, dependency_id);
+			});
+			return [ research_id, new Research(research_data[research_id]) ];
+		})
+) as Record<ResearchID, Research>;
+
+// Set up all dependants now
+dependencies.forEach((dependency, id) => {
+
+	// ID depends on dependency
+	researches[dependency].dependants.push(id);
+});

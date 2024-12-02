@@ -96,12 +96,12 @@ function setupResearchesWindow(): void {
 
 		// Configure elements
 		button.textContent = research.name;
-		button.classList.add("button", (research.isUnlocked() ? "active" : "inactive"));
+		button.classList.add("button", (research.locked ? "inactive" : "active"));
 		button.dataset.toggles = index;
 		button.addEventListener("click", toggleResearchActive);
 
 		// Append research container to target research level list
-		researches_lists.get(research.lab_level)?.appendChild(button);
+		researches_lists.get(research.level)?.appendChild(button);
 	}
 }
 
@@ -149,8 +149,7 @@ function applyParsedSettings(settings: ParsedSettings): void {
 		}
 
 		// Unlock the research
-		// TODO: Enable later!
-		// else researches[research_id].unlock();
+		else researches[research_id].unlock();
 	});
 
 	settings.recipes.forEach((recipe_id) => {
@@ -310,9 +309,6 @@ async function loadParseAndApplySettings(via_url: boolean): Promise<boolean> {
 
 // Initialize script
 async function init() {
-
-	// Instantiate all researches
-	Research.instantiateAll();
 
 	// Set up all researches in UI
 	setupResearchesWindow();
