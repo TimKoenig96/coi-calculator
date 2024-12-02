@@ -58,7 +58,21 @@ interface ParsedSettings {
 
 // #region | Functions
 // TODO: Request to toggle a research active status
-function toggleResearchActive(event: Event): void {}
+function toggleResearchActive(event: Event): void {
+
+	// Get clicked element and target ID, which doubles as the index
+	const target_element = event.target as HTMLDivElement;
+	const target_id: ResearchID = Number(target_element.dataset.toggles);
+
+	// Get research object
+	const research: Research = researches[target_id];
+
+	// Toggle status
+	if (research.locked) research.unlock();
+	else research.lock();
+
+	// TODO: Handle button icon change for all buttons, probably better done via class.
+}
 
 // Setup the researches window
 function setupResearchesWindow(): void {
@@ -342,6 +356,9 @@ async function init() {
 	event_config.forEach(([element, event_type, handler]) => {
 		element.addEventListener(event_type, handler);
 	});
+
+	// TEMP: Goto research window
+	set_researches_btn.click();
 }
 // #endregion
 
