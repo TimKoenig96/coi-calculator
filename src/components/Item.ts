@@ -1,3 +1,4 @@
+// Unique numeric item IDs
 export enum ItemID {
 
 	// #region | 0+: Natural Resources
@@ -209,6 +210,7 @@ export enum ItemID {
 	// #endregion
 }
 
+// Item categories
 enum ItemCategory {
 	NATURAL_RESOURCE = 0,
 	SEMI_PROCESSED_RESOURCE = 1,
@@ -219,6 +221,7 @@ enum ItemCategory {
 	WASTE_AND_POLLUTION = 6
 }
 
+// Item states
 enum ItemState {
 	LOOSE = 0,
 	UNIT = 1,
@@ -228,233 +231,255 @@ enum ItemState {
 	VIRTUAL = 5
 }
 
+// Item count type
 export type ItemCount = Partial<{
 	[key in ItemID]: number
 }>;
 
+// Structure of item data
+interface ItemData {
+	name: string,
+	category: ItemCategory,
+	state: ItemState
+}
+
+// All item data
+const item_data: Record<ItemID, ItemData> = {
+
+	// #region | Natural Resources
+	[ItemID.COAL]: { name: "Coal", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.COPPER_ORE]: { name: "Copper Ore", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.DIRT]: { name: "Dirt", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_ORE]: { name: "Gold Ore", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.IRON_ORE]: { name: "Iron Ore", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.LIMESTONE]: { name: "Limestone", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.QUARTZ]: { name: "Quartz", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.ROCK]: { name: "Rock", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.SAND]: { name: "Sand", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.SEAWATER]: { name: "Seawater", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.FLUID},
+	[ItemID.SULFUR]: { name: "Sulfur", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.URANIUM_ORE]: { name: "Uranium Ore", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.WOOD]: { name: "Wood", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.UNIT},
+	[ItemID.WATER]: { name: "Water", category: ItemCategory.NATURAL_RESOURCE, state: ItemState.FLUID},
+	// #endregion
+
+	// #region | Semi-Processed Resources
+	[ItemID.ACID]: { name: "Acid", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.FLUID},
+	[ItemID.BRINE]: { name: "Brine", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.FLUID},
+	[ItemID.BROKEN_GLASS]: { name: "Broken Glass", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.CEMENT]: { name: "Cement", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.UNIT},
+	[ItemID.CHILLED_WATER]: { name: "Chilled Water", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.FLUID},
+	[ItemID.COPPER_ORE_CRUSHED]: { name: "Copper Ore Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.COPPER_SCRAP]: { name: "Copper Scrap", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.COPPER_SCRAP_PRESSED]: { name: "Copper Scrap Pressed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GLASS_MIX]: { name: "Glass Mix", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_ORE_CONCENTRATE]: { name: "Gold Ore Concentrate", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_ORE_CRUSHED]: { name: "Gold Ore Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_ORE_POWDER]: { name: "Gold Ore Powder", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_SCRAP]: { name: "Gold Scrap", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GOLD_SCRAP_PRESSED]: { name: "Gold Scrap Pressed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.GRAPHITE]: { name: "Graphite", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.UNIT},
+	[ItemID.GRAVEL]: { name: "Gravel", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.IMPURE_COPPER]: { name: "Impure Copper", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.UNIT},
+	[ItemID.IRON_ORE_CRUSHED]: { name: "Iron Ore Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.IRON_SCRAP]: { name: "Iron Scrap", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.IRON_SCRAP_PRESSED]: { name: "Iron Scrap Pressed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.MANUFACTURED_SAND]: { name: "Manufactured Sand", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.MOLTEN_COPPER]: { name: "Molten Copper", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.MOLTEN},
+	[ItemID.MOLTEN_GLASS]: { name: "Molten Glass", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.MOLTEN},
+	[ItemID.MOLTEN_IRON]: { name: "Molten Iron", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.MOLTEN},
+	[ItemID.MOLTEN_SILICON]: { name: "Molten Silicon", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.MOLTEN},
+	[ItemID.MOLTEN_STEEL]: { name: "Molten Steel", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.MOLTEN},
+	[ItemID.QUARTZ_CRUSHED]: { name: "Quartz Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.RECYCLABLES]: { name: "Recyclables", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.RECYCLABLES_PRESSED]: { name: "Recyclables Pressed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.SALT]: { name: "Salt", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.SLAG_CRUSHED]: { name: "Slag Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.URANIUM_ORE_CRUSHED]: { name: "Uranium Ore Crushed", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	[ItemID.WOODCHIPS]: { name: "Woodchips", category: ItemCategory.SEMI_PROCESSED_RESOURCE, state: ItemState.LOOSE},
+	// #endregion
+
+	// #region | Crafted Materials
+	[ItemID.BRICKS]: { name: "Bricks", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONCRETE_SLAB]: { name: "Concrete Slab", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONSTRUCTION_PARTS]: { name: "Construction Parts", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONSTRUCTION_PARTS_II]: { name: "Construction Parts II", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONSTRUCTION_PARTS_III]: { name: "Construction Parts III", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONSTRUCTION_PARTS_IV]: { name: "Construction Parts IV", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.CONSUMER_ELECTRONICS]: { name: "Consumer Electronics", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.COPPER]: { name: "Copper", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.ELECTRONICS]: { name: "Electronics", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.ELECTRONICS_II]: { name: "Electronics II", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.ELECTRONICS_III]: { name: "Electronics III", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.FILTER_MEDIA]: { name: "Filter Media", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.LOOSE},
+	[ItemID.FLOWERS]: { name: "Flowers", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.GLASS]: { name: "Glass", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.GOLD]: { name: "Gold", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.HOUSEHOLD_APPLIANCES]: { name: "Household Appliances", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.HOUSEHOLD_GOODS]: { name: "Household Goods", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.IRON]: { name: "Iron", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.LAB_EQUIPMENT]: { name: "Lab Equipment", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.LAB_EQUIPMENT_II]: { name: "Lab Equipment II", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.LAB_EQUIPMENT_III]: { name: "Lab Equipment III", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.LAB_EQUIPMENT_IV]: { name: "Lab Equipment IV", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MAINTENANCE_I]: { name: "Maintenance I", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.VIRTUAL},
+	[ItemID.MAINTENANCE_II]: { name: "Maintenance II", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.VIRTUAL},
+	[ItemID.MAINTENANCE_III]: { name: "Maintenance III", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.VIRTUAL},
+	[ItemID.MECHANICAL_PARTS]: { name: "Mechanical Parts", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS]: { name: "Microchips", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_1_A]: { name: "Microchips Stage 1 A", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_1_B]: { name: "Microchips Stage 1 B", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_1_C]: { name: "Microchips Stage 1 C", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_2_A]: { name: "Microchips Stage 2 A", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_2_B]: { name: "Microchips Stage 2 B", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_2_C]: { name: "Microchips Stage 2 C", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_3_A]: { name: "Microchips Stage 3 A", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_3_B]: { name: "Microchips Stage 3 B", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_3_C]: { name: "Microchips Stage 3 C", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_4_A]: { name: "Microchips Stage 4 A", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.MICROCHIPS_STAGE_4_B]: { name: "Microchips Stage 4 B", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.PAPER]: { name: "Paper", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.PCB]: { name: "PCB", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.SERVER]: { name: "Server", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.SILICON_POLY]: { name: "Silicon (Poly)", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.SILICON_WAFER]: { name: "Silicon Wafer", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.SOLAR_CELL]: { name: "Solar Cell", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.SOLAR_CELL_MONO]: { name: "Solar Cell Mono", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.LOOSE},
+	[ItemID.STEEL]: { name: "Steel", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.VEHICLE_PARTS]: { name: "Vehicle Parts", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.VEHICLE_PARTS_II]: { name: "Vehicle Parts II", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	[ItemID.VEHICLE_PARTS_III]: { name: "Vehicle Parts III", category: ItemCategory.CRAFTED_MATERIAL, state: ItemState.UNIT},
+	// #endregion
+
+	// #region | Foods and Medicals
+	[ItemID.ANESTHETICS]: { name: "Anesthetics", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.ANIMAL_FEED]: { name: "Animal Feed", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.ANTIBIOTICS]: { name: "Antibiotics", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.BREAD]: { name: "Bread", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.CAKE]: { name: "Cake", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.CANOLA]: { name: "Canola", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.CHICKEN_CARCASS]: { name: "Chicken Carcass", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.COMPOST]: { name: "Compost", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.COOKING_OIL]: { name: "Cooking Oil", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.CORN_MASH]: { name: "Corn Mash", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.CORN]: { name: "Corn", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.DISINFECTANT]: { name: "Disinfectant", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.EGGS]: { name: "Eggs", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.ETHANOL]: { name: "Ethanol", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.FERTILITY]: { name: "Fertility", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.FERTILIZER_ORGANIC]: { name: "Fertilizer (Organic)", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.FERTILIZER_I]: { name: "Fertilizer I", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.FERTILIZER_II]: { name: "Fertilizer II", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.FLUID},
+	[ItemID.FLOUR]: { name: "Flour", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.FOOD_PACK]: { name: "Food Pack", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.FRUIT]: { name: "Fruit", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.GREEN_MANURE]: { name: "Green Manure", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.VIRTUAL},
+	[ItemID.MEAT_TRIMMINGS]: { name: "Meat Trimmings", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.MEAT]: { name: "Meat", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.MEDICAL_EQUIPMENT]: { name: "Medical Equipment", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.MEDICAL_SUPPLIES]: { name: "Medical Supplies", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.MEDICAL_SUPPLIES_II]: { name: "Medical Supplies II", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.MEDICAL_SUPPLIES_III]: { name: "Medical Supplies III", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.MORPHINE]: { name: "Morphine", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.POPPY]: { name: "Poppy", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.POTATO]: { name: "Potato", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.SAUSAGE]: { name: "Sausage", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.SNACK]: { name: "Snack", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.SOYBEAN]: { name: "Soybean", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.SUGAR_CANE]: { name: "Sugar Cane", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.SUGAR]: { name: "Sugar", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	[ItemID.TOFU]: { name: "Tofu", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.TREE_SAPLING]: { name: "Tree Sapling", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.VEGETABLES]: { name: "Vegetables", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.UNIT},
+	[ItemID.WHEAT]: { name: "Wheat", category: ItemCategory.FOOD_AND_MEDICAL, state: ItemState.LOOSE},
+	// #endregion
+
+	// #region | Petrochemicals
+	[ItemID.CRUDE_OIL]: { name: "Crude Oil", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.SOUR_WATER]: { name: "Sour Water", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.HEAVY_OIL]: { name: "Heavy Oil", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.MEDIUM_OIL]: { name: "Medium Oil", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.DIESEL]: { name: "Diesel", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.LIGHT_OIL]: { name: "Light Oil", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.FUEL_GAS]: { name: "Fuel Gas", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.NAPHTHA]: { name: "Naphtha", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.AMMONIA]: { name: "Ammonia", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.CHLORINE]: { name: "Chlorine", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.HYDROGEN]: { name: "Hydrogen", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.NITROGEN]: { name: "Nitrogen", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.OXYGEN]: { name: "Oxygen", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.HYDROGEN_FLUORIDE]: { name: "Hydrogen Fluoride", category: ItemCategory.PETROCHEMICAL, state: ItemState.FLUID},
+	[ItemID.PLASTIC]: { name: "Plastic", category: ItemCategory.PETROCHEMICAL, state: ItemState.UNIT},
+	[ItemID.RUBBER]: { name: "Rubber", category: ItemCategory.PETROCHEMICAL, state: ItemState.UNIT},
+	// #endregion
+
+	// #region | Power and Nuclears
+	[ItemID.ELECTRICITY]: { name: "Electricity", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.VIRTUAL},
+	[ItemID.MECHANICAL_POWER]: { name: "Mechanical Power", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.MECHANICAL},
+	[ItemID.HEAT]: { name: "Heat", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.VIRTUAL},
+	[ItemID.STEAM_SUPER]: { name: "Steam (Super)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.STEAM_HIGH]: { name: "Steam (High)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.STEAM_LOW]: { name: "Steam (Low)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.STEAM_DEPLETED]: { name: "Steam Depleted", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.BLANKET_FUEL]: { name: "Blanket Fuel", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.BLANKET_FUEL_ENRICHED]: { name: "Blanket Fuel (Enriched)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.CORE_FUEL]: { name: "Core Fuel", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.CORE_FUEL_SPENT]: { name: "Core Fuel (Spent)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.FLUID},
+	[ItemID.DEPLETED_URANIUM]: { name: "Depleted Uranium", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.LOOSE},
+	[ItemID.ENRICHED_URANIUM_4]: { name: "Enriched Uranium (4%)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.ENRICHED_URANIUM_20]: { name: "Enriched Uranium (20%)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.FISSION_PRODUCT]: { name: "Fission Product", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.MOX_ROD]: { name: "MOX Rod", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.PLUTONIUM]: { name: "Plutonium", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.REPROCESSED_URANIUM_1]: { name: "Reprocessed Uranium (1%)", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.RETIRED_WASTE]: { name: "Retired Waste", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.SPENT_FUEL]: { name: "Spent Fuel", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.SPENT_MOX]: { name: "Spent MOX", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.URANIUM_ROD]: { name: "Uranium Rod", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.UNIT},
+	[ItemID.YELLOW_CAKE]: { name: "Yellow Cake", category: ItemCategory.POWER_AND_NUCLEAR, state: ItemState.LOOSE},
+	// #endregion
+
+	// #region | Wastes and Pollution
+	[ItemID.AIR_POLLUTION]: { name: "Air Pollution", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.VIRTUAL},
+	[ItemID.BIOMASS]: { name: "Biomass", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.LOOSE},
+	[ItemID.CARBON_DIOXIDE]: { name: "Carbon Dioxide", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.FLUID},
+	[ItemID.EXHAUST]: { name: "Exhaust", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.FLUID},
+	[ItemID.RADIATION]: { name: "Radiation", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.VIRTUAL},
+	[ItemID.SLAG]: { name: "Slag", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.LOOSE},
+	[ItemID.SLUDGE]: { name: "Sludge", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.LOOSE},
+	[ItemID.TOXIC_SLURRY]: { name: "Toxic Slurry", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.FLUID},
+	[ItemID.WASTE]: { name: "Waste", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.LOOSE},
+	[ItemID.WATER_POLLUTION]: { name: "Water Pollution", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.VIRTUAL},
+	[ItemID.WASTE_PRESSED]: { name: "Waste Pressed", category: ItemCategory.WASTE_AND_POLLUTION, state: ItemState.LOOSE},
+	[ItemID.WASTE_WATER]: { name: "Waste Water", category:ItemCategory.WASTE_AND_POLLUTION, state: ItemState.FLUID},
+	// #endregion
+};
+
+// Individual item
 class Item {
 	public readonly name: string;
 	private readonly category: ItemCategory;
 	private readonly state: ItemState;
 
-	constructor(
-		name: string,
-		category: ItemCategory,
-		state: ItemState
-	) {
+	constructor({
+		name,
+		category,
+		state
+	}: ItemData) {
 		this.name = name;
 		this.category = category;
 		this.state = state;
 	}
 }
 
-const items: Record<ItemID, Item> = {
+// Instantiate all items
+export const items: Record<ItemID, Item> = Object.fromEntries(
 
-	// #region | Natural Resources
-	[ItemID.COAL]: new Item("Coal", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.COPPER_ORE]: new Item("Copper Ore", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.DIRT]: new Item("Dirt", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_ORE]: new Item("Gold Ore", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.IRON_ORE]: new Item("Iron Ore", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.LIMESTONE]: new Item("Limestone", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.QUARTZ]: new Item("Quartz", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.ROCK]: new Item("Rock", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.SAND]: new Item("Sand", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.SEAWATER]: new Item("Seawater", ItemCategory.NATURAL_RESOURCE, ItemState.FLUID),
-	[ItemID.SULFUR]: new Item("Sulfur", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.URANIUM_ORE]: new Item("Uranium Ore", ItemCategory.NATURAL_RESOURCE, ItemState.LOOSE),
-	[ItemID.WOOD]: new Item("Wood", ItemCategory.NATURAL_RESOURCE, ItemState.UNIT),
-	[ItemID.WATER]: new Item("Water", ItemCategory.NATURAL_RESOURCE, ItemState.FLUID),
-	// #endregion
-
-	// #region | Semi-Processed Resources
-	[ItemID.ACID]: new Item("Acid", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.FLUID),
-	[ItemID.BRINE]: new Item("Brine", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.FLUID),
-	[ItemID.BROKEN_GLASS]: new Item("Broken Glass", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.CEMENT]: new Item("Cement", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.UNIT),
-	[ItemID.CHILLED_WATER]: new Item("Chilled Water", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.FLUID),
-	[ItemID.COPPER_ORE_CRUSHED]: new Item("Copper Ore Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.COPPER_SCRAP]: new Item("Copper Scrap", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.COPPER_SCRAP_PRESSED]: new Item("Copper Scrap Pressed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GLASS_MIX]: new Item("Glass Mix", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_ORE_CONCENTRATE]: new Item("Gold Ore Concentrate", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_ORE_CRUSHED]: new Item("Gold Ore Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_ORE_POWDER]: new Item("Gold Ore Powder", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_SCRAP]: new Item("Gold Scrap", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GOLD_SCRAP_PRESSED]: new Item("Gold Scrap Pressed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.GRAPHITE]: new Item("Graphite", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.UNIT),
-	[ItemID.GRAVEL]: new Item("Gravel", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.IMPURE_COPPER]: new Item("Impure Copper", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.UNIT),
-	[ItemID.IRON_ORE_CRUSHED]: new Item("Iron Ore Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.IRON_SCRAP]: new Item("Iron Scrap", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.IRON_SCRAP_PRESSED]: new Item("Iron Scrap Pressed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.MANUFACTURED_SAND]: new Item("Manufactured Sand", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.MOLTEN_COPPER]: new Item("Molten Copper", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.MOLTEN),
-	[ItemID.MOLTEN_GLASS]: new Item("Molten Glass", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.MOLTEN),
-	[ItemID.MOLTEN_IRON]: new Item("Molten Iron", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.MOLTEN),
-	[ItemID.MOLTEN_SILICON]: new Item("Molten Silicon", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.MOLTEN),
-	[ItemID.MOLTEN_STEEL]: new Item("Molten Steel", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.MOLTEN),
-	[ItemID.QUARTZ_CRUSHED]: new Item("Quartz Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.RECYCLABLES]: new Item("Recyclables", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.RECYCLABLES_PRESSED]: new Item("Recyclables Pressed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.SALT]: new Item("Salt", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.SLAG_CRUSHED]: new Item("Slag Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.URANIUM_ORE_CRUSHED]: new Item("Uranium Ore Crushed", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	[ItemID.WOODCHIPS]: new Item("Woodchips", ItemCategory.SEMI_PROCESSED_RESOURCE, ItemState.LOOSE),
-	// #endregion
-
-	// #region | Crafted Materials
-	[ItemID.BRICKS]: new Item("Bricks", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONCRETE_SLAB]: new Item("Concrete Slab", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONSTRUCTION_PARTS]: new Item("Construction Parts", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONSTRUCTION_PARTS_II]: new Item("Construction Parts II", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONSTRUCTION_PARTS_III]: new Item("Construction Parts III", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONSTRUCTION_PARTS_IV]: new Item("Construction Parts IV", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.CONSUMER_ELECTRONICS]: new Item("Consumer Electronics", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.COPPER]: new Item("Copper", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.ELECTRONICS]: new Item("Electronics", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.ELECTRONICS_II]: new Item("Electronics II", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.ELECTRONICS_III]: new Item("Electronics III", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.FILTER_MEDIA]: new Item("Filter Media", ItemCategory.CRAFTED_MATERIAL, ItemState.LOOSE),
-	[ItemID.FLOWERS]: new Item("Flowers", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.GLASS]: new Item("Glass", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.GOLD]: new Item("Gold", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.HOUSEHOLD_APPLIANCES]: new Item("Household Appliances", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.HOUSEHOLD_GOODS]: new Item("Household Goods", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.IRON]: new Item("Iron", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.LAB_EQUIPMENT]: new Item("Lab Equipment", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.LAB_EQUIPMENT_II]: new Item("Lab Equipment II", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.LAB_EQUIPMENT_III]: new Item("Lab Equipment III", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.LAB_EQUIPMENT_IV]: new Item("Lab Equipment IV", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MAINTENANCE_I]: new Item("Maintenance I", ItemCategory.CRAFTED_MATERIAL, ItemState.VIRTUAL),
-	[ItemID.MAINTENANCE_II]: new Item("Maintenance II", ItemCategory.CRAFTED_MATERIAL, ItemState.VIRTUAL),
-	[ItemID.MAINTENANCE_III]: new Item("Maintenance III", ItemCategory.CRAFTED_MATERIAL, ItemState.VIRTUAL),
-	[ItemID.MECHANICAL_PARTS]: new Item("Mechanical Parts", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS]: new Item("Microchips", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_1_A]: new Item("Microchips Stage 1 A", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_1_B]: new Item("Microchips Stage 1 B", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_1_C]: new Item("Microchips Stage 1 C", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_2_A]: new Item("Microchips Stage 2 A", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_2_B]: new Item("Microchips Stage 2 B", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_2_C]: new Item("Microchips Stage 2 C", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_3_A]: new Item("Microchips Stage 3 A", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_3_B]: new Item("Microchips Stage 3 B", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_3_C]: new Item("Microchips Stage 3 C", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_4_A]: new Item("Microchips Stage 4 A", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.MICROCHIPS_STAGE_4_B]: new Item("Microchips Stage 4 B", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.PAPER]: new Item("Paper", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.PCB]: new Item("PCB", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.SERVER]: new Item("Server", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.SILICON_POLY]: new Item("Silicon (Poly)", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.SILICON_WAFER]: new Item("Silicon Wafer", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.SOLAR_CELL]: new Item("Solar Cell", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.SOLAR_CELL_MONO]: new Item("Solar Cell Mono", ItemCategory.CRAFTED_MATERIAL, ItemState.LOOSE),
-	[ItemID.STEEL]: new Item("Steel", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.VEHICLE_PARTS]: new Item("Vehicle Parts", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.VEHICLE_PARTS_II]: new Item("Vehicle Parts II", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	[ItemID.VEHICLE_PARTS_III]: new Item("Vehicle Parts III", ItemCategory.CRAFTED_MATERIAL, ItemState.UNIT),
-	// #endregion
-
-	// #region | Foods and Medicals
-	[ItemID.ANESTHETICS]: new Item("Anesthetics", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.ANIMAL_FEED]: new Item("Animal Feed", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.ANTIBIOTICS]: new Item("Antibiotics", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.BREAD]: new Item("Bread", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.CAKE]: new Item("Cake", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.CANOLA]: new Item("Canola", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.CHICKEN_CARCASS]: new Item("Chicken Carcass", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.COMPOST]: new Item("Compost", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.COOKING_OIL]: new Item("Cooking Oil", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.CORN_MASH]: new Item("Corn Mash", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.CORN]: new Item("Corn", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.DISINFECTANT]: new Item("Disinfectant", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.EGGS]: new Item("Eggs", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.ETHANOL]: new Item("Ethanol", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.FERTILITY]: new Item("Fertility", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.FERTILIZER_ORGANIC]: new Item("Fertilizer (Organic)", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.FERTILIZER_I]: new Item("Fertilizer I", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.FERTILIZER_II]: new Item("Fertilizer II", ItemCategory.FOOD_AND_MEDICAL, ItemState.FLUID),
-	[ItemID.FLOUR]: new Item("Flour", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.FOOD_PACK]: new Item("Food Pack", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.FRUIT]: new Item("Fruit", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.GREEN_MANURE]: new Item("Green Manure", ItemCategory.FOOD_AND_MEDICAL, ItemState.VIRTUAL),
-	[ItemID.MEAT_TRIMMINGS]: new Item("Meat Trimmings", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.MEAT]: new Item("Meat", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.MEDICAL_EQUIPMENT]: new Item("Medical Equipment", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.MEDICAL_SUPPLIES]: new Item("Medical Supplies", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.MEDICAL_SUPPLIES_II]: new Item("Medical Supplies II", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.MEDICAL_SUPPLIES_III]: new Item("Medical Supplies III", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.MORPHINE]: new Item("Morphine", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.POPPY]: new Item("Poppy", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.POTATO]: new Item("Potato", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.SAUSAGE]: new Item("Sausage", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.SNACK]: new Item("Snack", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.SOYBEAN]: new Item("Soybean", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.SUGAR_CANE]: new Item("Sugar Cane", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.SUGAR]: new Item("Sugar", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	[ItemID.TOFU]: new Item("Tofu", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.TREE_SAPLING]: new Item("Tree Sapling", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.VEGETABLES]: new Item("Vegetables", ItemCategory.FOOD_AND_MEDICAL, ItemState.UNIT),
-	[ItemID.WHEAT]: new Item("Wheat", ItemCategory.FOOD_AND_MEDICAL, ItemState.LOOSE),
-	// #endregion
-
-	// #region | Petrochemicals
-	[ItemID.CRUDE_OIL]: new Item("Crude Oil", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.SOUR_WATER]: new Item("Sour Water", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.HEAVY_OIL]: new Item("Heavy Oil", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.MEDIUM_OIL]: new Item("Medium Oil", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.DIESEL]: new Item("Diesel", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.LIGHT_OIL]: new Item("Light Oil", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.FUEL_GAS]: new Item("Fuel Gas", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.NAPHTHA]: new Item("Naphtha", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.AMMONIA]: new Item("Ammonia", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.CHLORINE]: new Item("Chlorine", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.HYDROGEN]: new Item("Hydrogen", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.NITROGEN]: new Item("Nitrogen", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.OXYGEN]: new Item("Oxygen", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.HYDROGEN_FLUORIDE]: new Item("Hydrogen Fluoride", ItemCategory.PETROCHEMICAL, ItemState.FLUID),
-	[ItemID.PLASTIC]: new Item("Plastic", ItemCategory.PETROCHEMICAL, ItemState.UNIT),
-	[ItemID.RUBBER]: new Item("Rubber", ItemCategory.PETROCHEMICAL, ItemState.UNIT),
-	// #endregion
-
-	// #region | Power and Nuclears
-	[ItemID.ELECTRICITY]: new Item("Electricity", ItemCategory.POWER_AND_NUCLEAR, ItemState.VIRTUAL),
-	[ItemID.MECHANICAL_POWER]: new Item("Mechanical Power", ItemCategory.POWER_AND_NUCLEAR, ItemState.MECHANICAL),
-	[ItemID.HEAT]: new Item("Heat", ItemCategory.POWER_AND_NUCLEAR, ItemState.VIRTUAL),
-	[ItemID.STEAM_SUPER]: new Item("Steam (Super)", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.STEAM_HIGH]: new Item("Steam (High)", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.STEAM_LOW]: new Item("Steam (Low)", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.STEAM_DEPLETED]: new Item("Steam Depleted", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.BLANKET_FUEL]: new Item("Blanket Fuel", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.BLANKET_FUEL_ENRICHED]: new Item("Blanket Fuel (Enriched)", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.CORE_FUEL]: new Item("Core Fuel", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.CORE_FUEL_SPENT]: new Item("Core Fuel (Spent)", ItemCategory.POWER_AND_NUCLEAR, ItemState.FLUID),
-	[ItemID.DEPLETED_URANIUM]: new Item("Depleted Uranium", ItemCategory.POWER_AND_NUCLEAR, ItemState.LOOSE),
-	[ItemID.ENRICHED_URANIUM_4]: new Item("Enriched Uranium (4%)", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.ENRICHED_URANIUM_20]: new Item("Enriched Uranium (20%)", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.FISSION_PRODUCT]: new Item("Fission Product", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.MOX_ROD]: new Item("MOX Rod", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.PLUTONIUM]: new Item("Plutonium", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.REPROCESSED_URANIUM_1]: new Item("Reprocessed Uranium (1%)", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.RETIRED_WASTE]: new Item("Retired Waste", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.SPENT_FUEL]: new Item("Spent Fuel", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.SPENT_MOX]: new Item("Spent MOX", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.URANIUM_ROD]: new Item("Uranium Rod", ItemCategory.POWER_AND_NUCLEAR, ItemState.UNIT),
-	[ItemID.YELLOW_CAKE]: new Item("Yellow Cake", ItemCategory.POWER_AND_NUCLEAR, ItemState.LOOSE),
-	// #endregion
-
-	// #region | Wastes and Pollution
-	[ItemID.AIR_POLLUTION]: new Item("Air Pollution", ItemCategory.WASTE_AND_POLLUTION, ItemState.VIRTUAL),
-	[ItemID.BIOMASS]: new Item("Biomass", ItemCategory.WASTE_AND_POLLUTION, ItemState.LOOSE),
-	[ItemID.CARBON_DIOXIDE]: new Item("Carbon Dioxide", ItemCategory.WASTE_AND_POLLUTION, ItemState.FLUID),
-	[ItemID.EXHAUST]: new Item("Exhaust", ItemCategory.WASTE_AND_POLLUTION, ItemState.FLUID),
-	[ItemID.RADIATION]: new Item("Radiation", ItemCategory.WASTE_AND_POLLUTION, ItemState.VIRTUAL),
-	[ItemID.SLAG]: new Item("Slag", ItemCategory.WASTE_AND_POLLUTION, ItemState.LOOSE),
-	[ItemID.SLUDGE]: new Item("Sludge", ItemCategory.WASTE_AND_POLLUTION, ItemState.LOOSE),
-	[ItemID.TOXIC_SLURRY]: new Item("Toxic Slurry", ItemCategory.WASTE_AND_POLLUTION, ItemState.FLUID),
-	[ItemID.WASTE]: new Item("Waste", ItemCategory.WASTE_AND_POLLUTION, ItemState.LOOSE),
-	[ItemID.WATER_POLLUTION]: new Item("Water Pollution", ItemCategory.WASTE_AND_POLLUTION, ItemState.VIRTUAL),
-	[ItemID.WASTE_PRESSED]: new Item("Waste Pressed", ItemCategory.WASTE_AND_POLLUTION, ItemState.LOOSE),
-	[ItemID.WASTE_WATER]: new Item("Waste Water",ItemCategory.WASTE_AND_POLLUTION, ItemState.FLUID),
-	// #endregion
-};
+	// Filter enum for numerical IDs only
+	Object.values(ItemID)
+		.filter(value => typeof value === "number")
+		.map(item_id => [
+			item_id,
+			new Item(item_data[item_id])
+		])
+) as Record<ItemID, Item>;
