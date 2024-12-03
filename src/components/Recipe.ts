@@ -1,4 +1,4 @@
-import { BuildingCategory, BuildingID } from "./Building";
+import { BuildingCategory, BuildingID, buildings } from "./Building";
 import { ItemCount } from "./Item";
 
 // Unique numeric recipe IDs
@@ -29,8 +29,8 @@ const recipe_data: Record<RecipeID, RecipeData> = {
 class Recipe {
 
 	// Static variables
-	private static recipes_level_containers: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
-	private static recipes_lists: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+	public static recipes_level_containers: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+	public static recipes_lists: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
 
 	// Non-static variables
 	private readonly produced_in: BuildingID;
@@ -39,6 +39,7 @@ class Recipe {
 	private readonly output: ItemCount;
 	public locked: boolean;
 	public active: boolean;
+	private readonly button: HTMLDivElement;
 
 	constructor({
 		produced_in,
@@ -54,6 +55,7 @@ class Recipe {
 		this.output = output;
 		this.locked = locked;
 		this.active = active;
+		this.button = this.createRecipeButton();
 	}
 
 	// Create a recipe list for each building type for recipes window
@@ -87,6 +89,25 @@ class Recipe {
 			Recipe.recipes_lists.set(label, list);
 		}
 	}
+
+	// Creating the button to toggle the research
+	private createRecipeButton(): HTMLDivElement {
+
+		// Create and configure button
+		const button: HTMLDivElement = document.createElement("div");
+		button.textContent = "RECIPE HERE"; // FIXME: Generate HTML code via lambda function
+		button.classList.add("button", (this.active ? "active" : "inactive"));
+		if (this.locked) button.classList.add("hidden");
+
+		// TODO: Add event listener
+		// button.addEventListener("click", this.toggleRecipeActive.bind(this));
+
+		// Append button to proper lab level list
+		Recipe.recipes_lists.get(buildings[this.produced_in].category)?.appendChild(button);
+
+		// Return created button
+		return button;
+	}
 }
 
 // Set up recipes window building types
@@ -103,3 +124,4 @@ export const recipes: Record<RecipeID, Recipe> = Object.fromEntries(
 			new Recipe(recipe_data[recipe_id])
 		])
 ) as Record<RecipeID, Recipe>;
+console.log(Recipe.recipes_level_containers);
