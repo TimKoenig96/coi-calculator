@@ -1,5 +1,5 @@
 import { RecipeID, recipes } from "./components/Recipe";
-import { Research, researches, ResearchID, LabLevel } from "./components/Research";
+import { researches, ResearchID } from "./components/Research";
 import { NotificationType, UserNotification } from "./components/UserNotification";
 import { UserPrompt } from "./components/UserPrompt";
 
@@ -15,11 +15,7 @@ const set_researches_btn = document.getElementById("set_researches_btn") as HTML
 const set_recipes_btn = document.getElementById("set_recipes_btn") as HTMLDivElement;
 
 const researches_window = document.getElementById("researches_window") as HTMLDivElement;
-const researches_container = document.getElementById("researches_container") as HTMLDivElement;
 const recipes_window = document.getElementById("recipes_window") as HTMLDivElement;
-
-const researches_level_containers: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
-const researches_lists: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
 // #endregion
 
 
@@ -57,68 +53,6 @@ interface ParsedSettings {
 
 
 // #region | Functions
-// TODO: Request to toggle a research active status
-function toggleResearchActive(event: Event): void {
-
-	// Get clicked element and target ID, which doubles as the index
-	const target_element = event.target as HTMLDivElement;
-	const target_id: ResearchID = Number(target_element.dataset.toggles);
-
-	// Get research object
-	const research: Research = researches[target_id];
-
-	// Toggle status
-	if (research.locked) research.unlock();
-	else research.lock();
-
-	// TODO: Handle button icon change for all buttons, probably better done via class.
-}
-
-// Setup the researches window
-function setupResearchesWindow(): void {
-
-	// Create all research levels
-	for (const label of Object.values(LabLevel)) {
-
-		// Create elements
-		const container: HTMLDivElement = document.createElement("div");
-		const heading: HTMLHeadingElement = document.createElement("h1");
-		const horizontal_rule: HTMLHRElement = document.createElement("hr");
-		const list: HTMLDivElement = document.createElement("div");
-
-		// Configure elements
-		container.classList.add("researches_lists_container");
-		heading.textContent = label;
-		list.classList.add("flex_row", "flex_allow_wrap");
-
-		// Append elements
-		container.appendChild(heading);
-		container.appendChild(horizontal_rule);
-		container.appendChild(list);
-		researches_container.appendChild(container);
-
-		// Store elements in variables
-		researches_level_containers.set(label, container);
-		researches_lists.set(label, list);
-	}
-
-	// Iterate all researches
-	for (const [index, research] of Object.entries(researches)) {
-
-		// Create research button
-		const button: HTMLDivElement = document.createElement("div");
-
-		// Configure elements
-		button.textContent = research.name;
-		button.classList.add("button", (research.locked ? "inactive" : "active"));
-		button.dataset.toggles = index;
-		button.addEventListener("click", toggleResearchActive);
-
-		// Append research container to target research level list
-		researches_lists.get(research.level)?.appendChild(button);
-	}
-}
-
 // Toggle the researches window
 function toggleResearchesWindow(): void {
 
@@ -163,7 +97,7 @@ function applyParsedSettings(settings: ParsedSettings): void {
 		}
 
 		// Unlock the research
-		else researches[research_id].unlock();
+		else researches[research_id].toggleResearch();
 	});
 
 	settings.recipes.forEach((recipe_id) => {
@@ -323,9 +257,6 @@ async function loadParseAndApplySettings(via_url: boolean): Promise<boolean> {
 
 // Initialize script
 async function init() {
-
-	// Set up all researches in UI
-	setupResearchesWindow();
 
 	// Search parameters found
 	if (window.location.search) {

@@ -9,7 +9,7 @@ export enum ResearchID {
 }
 
 // Research lab levels
-export enum LabLevel {
+enum LabLevel {
 	RESEARCH_1 = "Research I",
 	RESEARCH_2 = "Research II",
 	RESEARCH_3 = "Research III",
@@ -35,7 +35,13 @@ const research_data: Record<ResearchID, ResearchData> = {
 };
 
 // Individual research
-export class Research {
+class Research {
+
+	// Static variables
+	private static researches_level_containers: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+	private static researches_lists: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+
+	// Non-static variables
 	public readonly name: string;
 	public readonly level: LabLevel;
 	private readonly dependencies: ResearchID[];
@@ -43,6 +49,7 @@ export class Research {
 	private readonly buildings: BuildingID[];
 	private readonly recipes: RecipeID[];
 	public locked: boolean;
+	private readonly button: HTMLDivElement;
 
 	constructor({
 		name,
@@ -58,10 +65,11 @@ export class Research {
 		this.buildings = buildings;
 		this.recipes = recipes;
 		this.locked = locked;
+		this.button = this.createResearchButton();
 	}
 
 	// Unlock research
-	public unlock(): void {
+	private unlock(): void {
 		if (!this.locked) return;
 
 		// Unlock all requirements
@@ -81,10 +89,13 @@ export class Research {
 		this.recipes.forEach((recipe_id) => {
 			recipes[recipe_id].locked = false;
 		});
+
+		// Set button class
+		this.button.classList.replace("inactive", "active");
 	}
 
 	// Lock research
-	public lock(): void {
+	private lock(): void {
 		if (this.locked) return;
 
 		// Lock all that depend on current research
@@ -104,8 +115,70 @@ export class Research {
 		this.recipes.forEach((recipe_id) => {
 			recipes[recipe_id].locked = true;
 		});
+
+		// Set button class
+		this.button.classList.replace("active", "inactive");
+	}
+
+	// Click handler
+	public toggleResearch(): void {
+		if (this.locked) this.unlock();
+		else this.lock();
+	}
+
+	// Create a research list for each research level for researches window
+	public static initResearchesWindow(): void {
+
+		// Get researches container
+		const researches_container = document.getElementById("researches_container") as HTMLDivElement;
+
+		// Iterate lab levels
+		for (const label of Object.values(LabLevel)) {
+
+			// Create elements
+			const container: HTMLDivElement = document.createElement("div");
+			const heading: HTMLHeadingElement = document.createElement("h1");
+			const horizontal_rule: HTMLHRElement = document.createElement("hr");
+			const list: HTMLDivElement = document.createElement("div");
+	
+			// Configure elements
+			container.classList.add("researches_lists_container");
+			heading.textContent = label;
+			list.classList.add("flex_row", "flex_allow_wrap");
+	
+			// Append elements
+			container.appendChild(heading);
+			container.appendChild(horizontal_rule);
+			container.appendChild(list);
+			researches_container.appendChild(container);
+	
+			// Store elements in variables
+			Research.researches_level_containers.set(label, container);
+			Research.researches_lists.set(label, list);
+		}
+	}
+
+	// Creating the button to toggle the research
+	private createResearchButton(): HTMLDivElement {
+
+		// Create and configure button
+		const button: HTMLDivElement = document.createElement("div");
+		button.textContent = this.name;
+		button.classList.add("button", (this.locked ? "inactive" : "active"));
+
+		// Add event listener
+		button.addEventListener("click", this.toggleResearch.bind(this));
+
+		// Append button to proper lab level list
+		Research.researches_lists.get(this.level)?.appendChild(button);
+
+		// Return created button
+		return button;
 	}
 }
+
+// Set up researches window lab levels
+Research.initResearchesWindow();
 
 // Storing dependencies
 const dependencies: Map<ResearchID, ResearchID> = new Map<ResearchID, ResearchID>();
