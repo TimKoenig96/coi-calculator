@@ -210,8 +210,15 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .button.recipe {
-	height: 2rem;
+	height: initial;
 	line-height: 0.8rem;
+}
+
+.sprite {
+	width: 32px;
+	height: 32px;
+	background-image: url("./media/spritesheet.png");
+	background-repeat: no-repeat;
 }
 
 .sprite,

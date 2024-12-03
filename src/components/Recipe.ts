@@ -142,7 +142,7 @@ class Recipe {
 			sprite.classList.add("sprite");
 			sprite.textContent = "[sprite]";
 			text.classList.add("sprite_label");
-			text.textContent = item_name;
+			text.textContent = count + "x " + item_name;
 
 			input.appendChild(sprite);
 			input.appendChild(text);
@@ -171,7 +171,7 @@ class Recipe {
 			sprite.classList.add("sprite");
 			sprite.textContent = "[sprite]";
 			text.classList.add("sprite_label");
-			text.textContent = item_name;
+			text.textContent = count + "x " + item_name;
 
 			output.appendChild(sprite);
 			output.appendChild(text);
