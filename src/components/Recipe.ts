@@ -58,6 +58,26 @@ class Recipe {
 		this.button = this.createRecipeButton();
 	}
 
+	// Deactivate recipe
+	private deactivate(): void {
+		if (!this.active) return;
+		this.active = false;
+		this.button.classList.replace("active", "inactive");
+	}
+
+	// Activate recipe
+	private activate(): void {
+		if (this.active) return;
+		this.active = true;
+		this.button.classList.replace("inactive", "active");
+	}
+
+	// Click handler
+	public toggleRecipeActive(): void {
+		if (this.active) this.deactivate();
+		else this.activate();
+	}
+
 	// Create a recipe list for each building type for recipes window
 	public static initRecipesWindow(): void {
 
@@ -99,8 +119,8 @@ class Recipe {
 		button.classList.add("button", (this.active ? "active" : "inactive"));
 		if (this.locked) button.classList.add("hidden");
 
-		// TODO: Add event listener
-		// button.addEventListener("click", this.toggleRecipeActive.bind(this));
+		// Add event listener
+		button.addEventListener("click", this.toggleRecipeActive.bind(this));
 
 		// Append button to proper lab level list
 		Recipe.recipes_lists.get(buildings[this.produced_in].category)?.appendChild(button);
@@ -124,4 +144,3 @@ export const recipes: Record<RecipeID, Recipe> = Object.fromEntries(
 			new Recipe(recipe_data[recipe_id])
 		])
 ) as Record<RecipeID, Recipe>;
-console.log(Recipe.recipes_level_containers);
