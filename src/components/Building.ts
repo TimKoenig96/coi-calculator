@@ -7,9 +7,22 @@ export enum BuildingID {
 	EXAMPLE_BUILDING_3 = 3
 }
 
+export enum BuildingCategory {
+	GENERAL_MACHINES = "General Machines",
+	WATER_EXTRACTION_AND_PROCESSING = "Water Extraction & Processing",
+	FOOD_PRODUCTION = "Food Production",
+	METALLURGY_AND_SMELTING = "Metallurgy & Smelting",
+	POWER_PRODUCTION = "Power Production",
+	CRUDE_OIL_REFINING = "Crude Oil Refining",
+	WASTE_MANAGEMENT = "Waste Management",
+	BUILDINGS = "Buildings",
+	HOUSING_AND_SERVICES = "Housing & Services"
+}
+
 // Structure of building data
 interface BuildingData {
 	name: string,
+	category: BuildingCategory,
 	build_cost: ItemCount,
 	workers?: number,
 	electricity?: number,
@@ -22,14 +35,15 @@ interface BuildingData {
 
 // All building data
 const building_data: Record<BuildingID, BuildingData> = {
-	[BuildingID.EXAMPLE_BUILDING_1]: { name: "Example Building 1", build_cost: {} },
-	[BuildingID.EXAMPLE_BUILDING_2]: { name: "Example Building 2", build_cost: {} },
-	[BuildingID.EXAMPLE_BUILDING_3]: { name: "Example Building 3", build_cost: {} }
+	[BuildingID.EXAMPLE_BUILDING_1]: { name: "Example Building 1", category: BuildingCategory.METALLURGY_AND_SMELTING, build_cost: {} },
+	[BuildingID.EXAMPLE_BUILDING_2]: { name: "Example Building 2", category: BuildingCategory.FOOD_PRODUCTION, build_cost: {} },
+	[BuildingID.EXAMPLE_BUILDING_3]: { name: "Example Building 3", category: BuildingCategory.CRUDE_OIL_REFINING, build_cost: {} }
 };
 
 // Individual building
 class Building {
 	public readonly name: string;
+	public readonly category: BuildingCategory;
 	public readonly build_cost: ItemCount;
 	public readonly workers: number;
 	public readonly electricity: number;
@@ -41,6 +55,7 @@ class Building {
 
 	constructor({
 		name,
+		category,
 		build_cost,
 		workers = 0,
 		electricity = 0,
@@ -51,6 +66,7 @@ class Building {
 		locked = true
 	}: BuildingData) {
 		this.name = name;
+		this.category = category;
 		this.build_cost = build_cost;
 		this.workers = workers;
 		this.electricity = electricity;
