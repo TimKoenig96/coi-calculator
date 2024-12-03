@@ -10,7 +10,7 @@ export enum BuildingID {
 // Structure of building data
 interface BuildingData {
 	name: string,
-	build_cost: ItemCount[],
+	build_cost: ItemCount,
 	workers?: number,
 	electricity?: number,
 	computing?: number,
@@ -22,15 +22,15 @@ interface BuildingData {
 
 // All building data
 const building_data: Record<BuildingID, BuildingData> = {
-	[BuildingID.EXAMPLE_BUILDING_1]: { name: "Example Building 1", build_cost: [] },
-	[BuildingID.EXAMPLE_BUILDING_2]: { name: "Example Building 2", build_cost: [] },
-	[BuildingID.EXAMPLE_BUILDING_3]: { name: "Example Building 3", build_cost: [] }
+	[BuildingID.EXAMPLE_BUILDING_1]: { name: "Example Building 1", build_cost: {} },
+	[BuildingID.EXAMPLE_BUILDING_2]: { name: "Example Building 2", build_cost: {} },
+	[BuildingID.EXAMPLE_BUILDING_3]: { name: "Example Building 3", build_cost: {} }
 };
 
 // Individual building
 class Building {
 	public readonly name: string;
-	public readonly build_cost: ItemCount[];
+	public readonly build_cost: ItemCount;
 	public readonly workers: number;
 	public readonly electricity: number;
 	public readonly computing: number;

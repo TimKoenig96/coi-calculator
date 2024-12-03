@@ -232,9 +232,7 @@ enum ItemState {
 }
 
 // Item count type
-export type ItemCount = Partial<{
-	[key in ItemID]: number
-}>;
+export type ItemCount = Partial<Record<ItemID, number>>;
 
 // Structure of item data
 interface ItemData {

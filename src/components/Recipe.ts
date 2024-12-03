@@ -12,8 +12,8 @@ export enum RecipeID {
 interface RecipeData {
 	produced_in: BuildingID,
 	time: number,
-	input?: ItemCount[],
-	output?: ItemCount[],
+	input?: ItemCount,
+	output?: ItemCount,
 	locked?: boolean,
 	active?: boolean
 }
@@ -29,16 +29,16 @@ const recipe_data: Record<RecipeID, RecipeData> = {
 class Recipe {
 	private readonly produced_in: BuildingID;
 	private readonly time: number;
-	private readonly input: ItemCount[];
-	private readonly output: ItemCount[];
 	public locked: boolean;
 	public active: boolean;
+	private readonly input: ItemCount;
+	private readonly output: ItemCount;
 
 	constructor({
 		produced_in,
 		time,
-		input = [],
-		output = [],
+		input = {},
+		output = {},
 		locked = true,
 		active = true
 	}: RecipeData) {
