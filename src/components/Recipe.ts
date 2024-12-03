@@ -1,10 +1,10 @@
-import { Building, BuildingID, buildings } from "./Building";
+import { BuildingID } from "./Building";
 import { ItemCount } from "./Item";
 
 export enum RecipeID {}
 
 class Recipe {
-	public readonly producer: Building;
+	public readonly producer: BuildingID;
 	public readonly time: number;
 	public readonly input: ItemCount;
 	public readonly output: ItemCount;
@@ -19,7 +19,7 @@ class Recipe {
 		locked: boolean = true,
 		active: boolean = true
 	) {
-		this.producer = buildings[producer];
+		this.producer = producer;
 		this.time = time;
 		this.input = input;
 		this.output = output;
