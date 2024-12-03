@@ -1,4 +1,4 @@
-import { BuildingID } from "./Building";
+import { BuildingCategory, BuildingID } from "./Building";
 import { ItemCount } from "./Item";
 
 // Unique numeric recipe IDs
@@ -27,12 +27,18 @@ const recipe_data: Record<RecipeID, RecipeData> = {
 
 // Individual recipe
 class Recipe {
+
+	// Static variables
+	private static recipes_level_containers: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+	private static recipes_lists: Map<string, HTMLDivElement> = new Map<string, HTMLDivElement>();
+
+	// Non-static variables
 	private readonly produced_in: BuildingID;
 	private readonly time: number;
-	public locked: boolean;
-	public active: boolean;
 	private readonly input: ItemCount;
 	private readonly output: ItemCount;
+	public locked: boolean;
+	public active: boolean;
 
 	constructor({
 		produced_in,
@@ -49,7 +55,42 @@ class Recipe {
 		this.locked = locked;
 		this.active = active;
 	}
+
+	// Create a recipe list for each building type for recipes window
+	public static initRecipesWindow(): void {
+
+		// Get recipes container
+		const recipes_container = document.getElementById("recipes_container") as HTMLDivElement;
+
+		// Iterate lab levels
+		for (const label of Object.values(BuildingCategory)) {
+
+			// Create elements
+			const container: HTMLDivElement = document.createElement("div");
+			const heading: HTMLHeadingElement = document.createElement("h1");
+			const horizontal_rule: HTMLHRElement = document.createElement("hr");
+			const list: HTMLDivElement = document.createElement("div");
+
+			// Configure elements
+			container.classList.add("recipes_lists_container");
+			heading.textContent = label;
+			list.classList.add("flex_row", "flex_allow_wrap");
+
+			// Append elements
+			container.appendChild(heading);
+			container.appendChild(horizontal_rule);
+			container.appendChild(list);
+			recipes_container.appendChild(container);
+
+			// Store elements in variables
+			Recipe.recipes_level_containers.set(label, container);
+			Recipe.recipes_lists.set(label, list);
+		}
+	}
 }
+
+// Set up recipes window building types
+Recipe.initRecipesWindow();
 
 // Instantiate all recipes
 export const recipes: Record<RecipeID, Recipe> = Object.fromEntries(
