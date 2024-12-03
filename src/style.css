@@ -24,7 +24,7 @@
 	--notif_error: hsla(0, 80%, 40%, 0.35);
 	
 	--text_primary: #eee;
-	--text_secondary: #777;
+	--text_secondary: #888;
 }
 
 * {
@@ -207,6 +207,21 @@ input[type="number"]::-webkit-inner-spin-button {
 #researches_searchbox,
 #recipes_searchbox {
 	flex-grow: 1;
+}
+
+.button.recipe {
+	height: 2rem;
+	line-height: 0.8rem;
+}
+
+.sprite,
+.sprite_label {
+	margin: 0 auto;
+}
+
+.sprite_label {
+	font-size: var(--font_small);
+	color: var(--text_secondary);
 }
 /* #endregion */
 

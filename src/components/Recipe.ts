@@ -1,5 +1,5 @@
 import { BuildingCategory, BuildingID, buildings } from "./Building";
-import { ItemCount } from "./Item";
+import { Item, ItemCount, ItemID, items } from "./Item";
 
 // Unique numeric recipe IDs
 export enum RecipeID {
@@ -113,16 +113,82 @@ class Recipe {
 	// Creating the button to toggle the research
 	private createRecipeButton(): HTMLDivElement {
 
-		// Create and configure button
+		// Create required elements
 		const button: HTMLDivElement = document.createElement("div");
-		button.textContent = "RECIPE HERE"; // FIXME: Generate HTML code via lambda function
-		button.classList.add("button", (this.active ? "active" : "inactive"));
+		const inputs: HTMLDivElement = document.createElement("div");
+		const time: HTMLDivElement = document.createElement("div");
+		const time_taken: HTMLSpanElement = document.createElement("span");
+		const direction_sprite: HTMLDivElement = document.createElement("div");
+		const outputs: HTMLDivElement = document.createElement("div");
+
+		// Configure all elements
+		button.classList.add("button", "recipe", "flex", "flex_row", (this.active ? "active" : "inactive"));
 		if (this.locked) button.classList.add("hidden");
+		inputs.classList.add("flex", "flex_row");
+		time.classList.add("flex", "flex_col");
+		outputs.classList.add("flex", "flex_row");
+
+		// Generate inputs
+		Object.entries(this.input).forEach(([item_id, count]) => {
+			const id: ItemID = Number(item_id);
+			const item: Item = items[id];
+			const item_name: string = item.name;
+
+			const input: HTMLDivElement = document.createElement("div");
+			const sprite: HTMLDivElement = document.createElement("div");
+			const text: HTMLSpanElement = document.createElement("span");
+
+			input.classList.add("flex", "flex_col");
+			sprite.classList.add("sprite");
+			sprite.textContent = "[sprite]";
+			text.classList.add("sprite_label");
+			text.textContent = item_name;
+
+			input.appendChild(sprite);
+			input.appendChild(text);
+			inputs.appendChild(input);
+		});
+
+		// Time related
+		time_taken.textContent = this.time + "s";
+		time_taken.classList.add("sprite_label");
+		direction_sprite.textContent = "[sprite]";
+		direction_sprite.classList.add("sprite");
+		time.appendChild(time_taken);
+		time.appendChild(direction_sprite);
+
+		// Generate outputs
+		Object.entries(this.output).forEach(([item_id, count]) => {
+			const id: ItemID = Number(item_id);
+			const item: Item = items[id];
+			const item_name: string = item.name;
+
+			const output: HTMLDivElement = document.createElement("div");
+			const sprite: HTMLDivElement = document.createElement("div");
+			const text: HTMLSpanElement = document.createElement("span");
+
+			output.classList.add("flex", "flex_col");
+			sprite.classList.add("sprite");
+			sprite.textContent = "[sprite]";
+			text.classList.add("sprite_label");
+			text.textContent = item_name;
+
+			output.appendChild(sprite);
+			output.appendChild(text);
+			outputs.appendChild(output);
+		});
+
+		// TODO: Handle no in- and/or outputs
+
+		// Append all elements to button
+		button.appendChild(inputs);
+		button.appendChild(time);
+		button.appendChild(outputs);
 
 		// Add event listener
 		button.addEventListener("click", this.toggleRecipeActive.bind(this));
 
-		// Append button to proper lab level list
+		// Append button to correct recipe list
 		Recipe.recipes_lists.get(buildings[this.produced_in].category)?.appendChild(button);
 
 		// Return created button

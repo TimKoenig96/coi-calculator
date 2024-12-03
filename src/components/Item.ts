@@ -454,7 +454,7 @@ const item_data: Record<ItemID, ItemData> = {
 };
 
 // Individual item
-class Item {
+export class Item {
 	public readonly name: string;
 	private readonly category: ItemCategory;
 	private readonly state: ItemState;
