@@ -29,9 +29,9 @@ interface ResearchData {
 
 // All research data
 const research_data: Record<ResearchID, ResearchData> = {
-	[ResearchID.EXAMPLE_RESEARCH_1]: { name: "Example Research 1", level: LabLevel.RESEARCH_1 },
-	[ResearchID.EXAMPLE_RESEARCH_2]: { name: "Example Research 2", level: LabLevel.RESEARCH_2, dependencies: [ResearchID.EXAMPLE_RESEARCH_1]},
-	[ResearchID.EXAMPLE_RESEARCH_3]: { name: "Example Research 3", level: LabLevel.RESEARCH_3, dependencies: [ResearchID.EXAMPLE_RESEARCH_2]}
+	[ResearchID.EXAMPLE_RESEARCH_1]: { name: "Example Research 1", level: LabLevel.RESEARCH_1, recipes: [RecipeID.EXAMPLE_RECIPE_1], locked: false },
+	[ResearchID.EXAMPLE_RESEARCH_2]: { name: "Example Research 2", level: LabLevel.RESEARCH_2, dependencies: [ResearchID.EXAMPLE_RESEARCH_1], recipes: [RecipeID.EXAMPLE_RECIPE_2] },
+	[ResearchID.EXAMPLE_RESEARCH_3]: { name: "Example Research 3", level: LabLevel.RESEARCH_3, dependencies: [ResearchID.EXAMPLE_RESEARCH_2], recipes: [RecipeID.EXAMPLE_RECIPE_3] }
 };
 
 // Individual research
@@ -48,7 +48,7 @@ class Research {
 	public dependants: ResearchID[] = [];
 	private readonly buildings: BuildingID[];
 	private readonly recipes: RecipeID[];
-	public locked: boolean;
+	public locked: boolean = true;
 	private readonly button: HTMLDivElement;
 
 	constructor({
@@ -64,8 +64,8 @@ class Research {
 		this.dependencies = dependencies;
 		this.buildings = buildings;
 		this.recipes = recipes;
-		this.locked = locked;
 		this.button = this.createResearchButton();
+		if (!locked) this.unlock();
 	}
 
 	// Unlock research
@@ -87,7 +87,7 @@ class Research {
 
 		// Iterate recipes that this research unlocked and unlock them
 		this.recipes.forEach((recipe_id) => {
-			recipes[recipe_id].locked = false;
+			recipes[recipe_id].unlock();
 		});
 
 		// Set button class
@@ -113,7 +113,7 @@ class Research {
 
 		// Iterate recipes that this research unlocked and unlock them
 		this.recipes.forEach((recipe_id) => {
-			recipes[recipe_id].locked = true;
+			recipes[recipe_id].lock();
 		});
 
 		// Set button class

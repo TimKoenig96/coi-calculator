@@ -72,6 +72,28 @@ class Recipe {
 		this.button.classList.replace("inactive", "active");
 	}
 
+	// Lock recipe
+	public lock(): void {
+		if (this.locked) return;
+
+		// Lock self
+		this.locked = true;
+
+		// Hide button
+		this.button.classList.add("hidden");
+	}
+
+	// Unlock recipe
+	public unlock(): void {
+		if (!this.locked) return;
+
+		// Unlock self
+		this.locked = false;
+
+		// Hide button
+		this.button.classList.remove("hidden");
+	}
+
 	// Click handler
 	public toggleRecipeActive(): void {
 		if (this.active) this.deactivate();
