@@ -198,7 +198,9 @@ class Recipe {
 			outputs.appendChild(output);
 		});
 
-		// TODO: Handle no in- and/or outputs
+		// If no in- or outputs, display "(None)"
+		if (Object.keys(this.input).length === 0) inputs.textContent = "(None)";
+		if (Object.keys(this.output).length === 0) outputs.textContent = "(None)";
 
 		// Append all elements to button
 		button.appendChild(inputs);
