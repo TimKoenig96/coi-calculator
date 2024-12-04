@@ -6,7 +6,7 @@
 	--font_medium: 1rem;
 	--font_small: 0.8rem;
 
-	--spacing_large: 16px;
+	--spacing_large: 12px;
 	--spacing_medium: 8px;
 	--spacing_small: 2px;
 
@@ -202,11 +202,15 @@ input[type="number"]::-webkit-inner-spin-button {
 	margin: var(--spacing_medium) 0;
 }
 
-#researches_container .button.active::before,
-#recipes_container .button.active::before { content: "🟢 "; }
+#researches_container .button.active,
+#recipes_container .button.active {
+	background-image: linear-gradient(135deg, rgb(58, 206, 58) var(--spacing_large), transparent var(--spacing_large));
+}
 
-#researches_container .button.inactive::before,
-#recipes_container .button.inactive::before { content: "🔴 "; }
+#researches_container .button.inactive,
+#recipes_container .button.inactive {
+	background-image: linear-gradient(135deg, rgb(206, 58, 58) var(--spacing_large), transparent var(--spacing_large));
+}
 
 #researches_searchbox,
 #recipes_searchbox {
@@ -215,7 +219,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .button.recipe {
 	height: initial;
-	line-height: 0.8rem;
 }
 
 .sprite {
