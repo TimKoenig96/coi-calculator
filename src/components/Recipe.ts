@@ -132,15 +132,13 @@ class Recipe {
 		}
 	}
 
-	// Creating the button to toggle the research
+	// Creating the button to toggle the recipe
 	private createRecipeButton(): HTMLDivElement {
 
 		// Create required elements
 		const button: HTMLDivElement = document.createElement("div");
 		const inputs: HTMLDivElement = document.createElement("div");
 		const time: HTMLDivElement = document.createElement("div");
-		const time_taken: HTMLSpanElement = document.createElement("span");
-		const direction_sprite: HTMLDivElement = document.createElement("div");
 		const outputs: HTMLDivElement = document.createElement("div");
 
 		// Configure all elements
@@ -172,12 +170,12 @@ class Recipe {
 		});
 
 		// Time related
-		time_taken.textContent = this.time + "s";
-		time_taken.classList.add("sprite_label");
-		direction_sprite.textContent = "[sprite]";
-		direction_sprite.classList.add("sprite");
-		time.appendChild(time_taken);
-		time.appendChild(direction_sprite);
+		time.innerHTML = `
+			<span>${this.time}s</span>
+			<svg viewBox="0 0 100 100">
+				<path class="visible" d="M52,3L97,50L52,97L52,68L3,68L3,32L52,32Z"/>
+			</svg>
+		`;
 
 		// Generate outputs
 		Object.entries(this.output).forEach(([item_id, count]) => {
