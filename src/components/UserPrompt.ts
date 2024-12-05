@@ -41,7 +41,7 @@ export class UserPrompt extends UserNotification {
 			button.addEventListener("click", () => {
 
 				// Close notification
-				if (data.closes) this.closeNotification.bind(this);
+				if (data.closes) this.closeNotification();
 
 				// Resolve
 				if (data.resolves) this.resolve(data.retval);
