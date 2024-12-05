@@ -7,7 +7,7 @@ export default (_, {mode}) => {
 	const is_production = (mode === "production");
 
 	return {
-		entry: "./src/script.ts",
+		entry: "./src/Script.ts",
 
 		output: {
 			path: resolve("./dist/"),
