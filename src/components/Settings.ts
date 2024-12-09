@@ -17,13 +17,12 @@ interface ParsedSettings {
 
 export class Settings {
 	private settings: ParsedSettings = { researches: [], recipes: [], inputs: [], outputs: [] };
-	private loaded_via_params: boolean = false;
 
 	// Constructor
 	constructor() {
 
-		// Request to load settings (try search parameters first, then local storage)
-		const raw_settings: RawSettings | null = this.getFromSearchParams() ?? this.getFromLocalStorage();
+		// Request to load settings
+		const raw_settings: RawSettings | null = this.getRawSettings();
 
 		// No settings found, stop here
 		if (!raw_settings) return;
@@ -42,7 +41,8 @@ export class Settings {
 				err_heading = "Error: JSON Syntax";
 				err_message = `
 					The JSON strings are malformed and could not be parsed.<br>
-					Would you like to clear your ${this.loaded_via_params ? "search parameters" : "local storage"}?<br><br>
+					Would you like to clear your search parameters?<br><br>
+
 					This action is irreversible and will result in your selected researches, recipes and current calculation being deleted.
 				`;
 				err_details = `${error.message}: ${raw_settings.researches} | ${raw_settings.recipes} | ${raw_settings.inputs} | ${raw_settings.outputs}`;
@@ -54,7 +54,7 @@ export class Settings {
 				err_details = error.message;
 			}
 
-			// Ask to fix issue by clearing search params or local storage
+			// Ask to fix issue by clearing search params
 			UserPrompt.prompt(
 				err_heading,
 				err_message,
@@ -65,11 +65,7 @@ export class Settings {
 						closes: true,
 						resolves: true,
 						retval: true,
-						func: (
-							this.loaded_via_params ?
-							Settings.clearSearchParameters :
-							Settings.clearLocalStorage
-						)
+						func: Settings.clearSearchParameters
 					},
 					{ // Abort
 						label: "Abort",
@@ -106,12 +102,6 @@ export class Settings {
 		window.location.reload();
 	}
 
-	// Clear local storage
-	private static clearLocalStorage(): void {
-		window.localStorage.clear();
-		window.location.reload();
-	}
-
 	// Parse and validate inputs
 	private parseAndValidate(raw_settings: RawSettings): ParsedSettings {
 
@@ -142,7 +132,7 @@ export class Settings {
 	}
 
 	// Get raw settings from search parameters
-	private getFromSearchParams(): RawSettings | null {
+	private getRawSettings(): RawSettings | null {
 
 		// No search parameters found
 		if (!window.location.search) return null;
@@ -158,28 +148,7 @@ export class Settings {
 			outputs: params.get("outputs")
 		};
 
-		// Set loaded via parameters to true
-		this.loaded_via_params = true;
-
 		// Return the raw settings
-		return raw_settings;
-	}
-
-	// Get raw settings from local storage
-	private getFromLocalStorage(): RawSettings | null {
-
-		// Unsupported or nothing stored
-		if (!window.localStorage) return null;
-		if (window.localStorage.length === 0) return null;
-
-		// Extract raw settings strings
-		const raw_settings: RawSettings = {
-			researches: window.localStorage.getItem("researches"),
-			recipes: window.localStorage.getItem("recipes"),
-			inputs: window.localStorage.getItem("inputs"),
-			outputs: window.localStorage.getItem("outputs")
-		};
-
 		return raw_settings;
 	}
 }
