@@ -27,10 +27,66 @@ export class Settings {
 		// No settings found, stop here
 		if (!raw_settings) return;
 
-		// Try parsing raw settings
-		let parsed_settings: ParsedSettings | null = null;
+		// Parse raw settings
+		const parsed_settings: ParsedSettings | null = this.parseAndValidate(raw_settings);
+
+		// Settings not successfully parsed, stop here
+		if (!parsed_settings) return;
+
+		// Set settings to parsed settings
+		this.settings = parsed_settings;
+
+		// Apply researches, recipes, in- and outputs
+		this.applySettings();
+	}
+
+	// Apply the settings
+	private applySettings(): void {
+
+		// TODO:
+		// - Iterate researches and activate the selected ones
+		// - Iterate recipes and deselect the selected ones
+		// - Iterate inputs and add them
+		// - Iterate outputs and add them
+		// - If outputs are specified, run calculation
+	}
+
+	// Clear search parameters
+	private static clearSearchParameters(): void {
+		const url: URL = new URL(window.location.href);
+		url.search = "";
+		history.pushState(null, "", url.toString());
+		window.location.reload();
+	}
+
+	// Parse and validate inputs
+	private parseAndValidate(raw_settings: RawSettings): ParsedSettings | null {
 		try {
-			parsed_settings = this.parseAndValidate(raw_settings);
+
+			// JSON parse all raw settings strings
+			const parsed: ParsedSettings = {
+				researches: JSON.parse(raw_settings.researches ?? "[]"),
+				recipes: JSON.parse(raw_settings.recipes ?? "[]"),
+				inputs: JSON.parse(raw_settings.inputs ?? "[]"),
+				outputs: JSON.parse(raw_settings.outputs ?? "[]")
+			};
+
+			// Check all parsed data
+			for (const array of Object.values(parsed)) {
+
+				// Check if array
+				if (!Array.isArray(array))
+					throw new Error("One of the parameters isn't an array.");
+
+				// Check if all array entries are numbers
+				// TODO: Eventually check if valid enum entry!
+				for (const entry of array)
+					if (typeof entry !== "number")
+						throw new Error("One of the values isn't a number.");
+			}
+
+			// Return data
+			return parsed;
 		} catch (error) {
 			let err_heading: string = "Error";
 			let err_message: string = "Unknown error";
@@ -83,52 +139,10 @@ export class Settings {
 					}
 				]
 			);
+
+			// Return no success
+			return null;
 		}
-
-		// Settings not successfully parsed, stop here
-		if (!parsed_settings) return;
-
-		// Set settings to parsed settings
-		this.settings = parsed_settings;
-
-		// TODO: Apply settings to researches, recipes and in- and outputs
-	}
-
-	// Clear search parameters
-	private static clearSearchParameters(): void {
-		const url: URL = new URL(window.location.href);
-		url.search = "";
-		history.pushState(null, "", url.toString());
-		window.location.reload();
-	}
-
-	// Parse and validate inputs
-	private parseAndValidate(raw_settings: RawSettings): ParsedSettings {
-
-		// JSON parse all raw settings strings
-		const parsed: ParsedSettings = {
-			researches: JSON.parse(raw_settings.researches ?? "[]"),
-			recipes: JSON.parse(raw_settings.recipes ?? "[]"),
-			inputs: JSON.parse(raw_settings.inputs ?? "[]"),
-			outputs: JSON.parse(raw_settings.outputs ?? "[]")
-		};
-
-		// Check all parsed data
-		for (const array of Object.values(parsed)) {
-
-			// Check if array
-			if (!Array.isArray(array))
-				throw new Error("One of the parameters isn't an array.");
-
-			// Check if all array entries are numbers
-			// TODO: Eventually check if valid enum entry!
-			for (const entry of array)
-				if (typeof entry !== "number")
-					throw new Error("One of the values isn't a number.");
-		}
-
-		// Return data
-		return parsed;
 	}
 
 	// Get raw settings from search parameters
